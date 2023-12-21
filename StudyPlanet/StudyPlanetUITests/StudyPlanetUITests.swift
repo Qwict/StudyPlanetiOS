@@ -1,13 +1,14 @@
 //
-//  StudyPlanetiOSUITests.swift
-//  StudyPlanetiOSUITests
+//  StudyPlanetUITests.swift
+//  StudyPlanetUITests
 //
-//  Created by Joris Van Duyse on 18/12/2023.
+//  Created by Joris Van Duyse on 21/12/2023.
+//
 //
 
 import XCTest
 
-final class StudyPlanetiOSUITests: XCTestCase {
+final class StudyPlanetUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

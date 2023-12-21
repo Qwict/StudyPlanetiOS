@@ -1,13 +1,14 @@
 //
-//  StudyPlanetiOSUITestsLaunchTests.swift
-//  StudyPlanetiOSUITests
+//  StudyPlanetUITestsLaunchTests.swift
+//  StudyPlanetUITests
 //
-//  Created by Joris Van Duyse on 18/12/2023.
+//  Created by Joris Van Duyse on 21/12/2023.
+//
 //
 
 import XCTest
 
-final class StudyPlanetiOSUITestsLaunchTests: XCTestCase {
+final class StudyPlanetUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

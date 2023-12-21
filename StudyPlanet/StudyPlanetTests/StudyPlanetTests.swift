@@ -1,14 +1,15 @@
 //
-//  StudyPlanetiOSTests.swift
-//  StudyPlanetiOSTests
+//  StudyPlanetTests.swift
+//  StudyPlanetTests
 //
-//  Created by Joris Van Duyse on 18/12/2023.
+//  Created by Joris Van Duyse on 21/12/2023.
+//
 //
 
 import XCTest
-@testable import StudyPlanetiOS
+@testable import StudyPlanet
 
-final class StudyPlanetiOSTests: XCTestCase {
+final class StudyPlanetTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
