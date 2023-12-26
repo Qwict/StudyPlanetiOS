@@ -12,6 +12,10 @@ struct LoginAction {
             return
         }
 
+        guard let url = URL(string: "https://sp.qwict.com/api/v1/users/login") else {
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -29,7 +33,7 @@ struct LoginAction {
                     let response = try JSONDecoder().decode(AuthenticatedUserDto.self, from: data)
 
                     // Save the token
-                    AuthenticationManager.shared.authenticate(with: response.token)
+//                    AuthenticationManager.shared.authenticate(with: response.token)
 
                     completion(.success(response))
                 } catch {

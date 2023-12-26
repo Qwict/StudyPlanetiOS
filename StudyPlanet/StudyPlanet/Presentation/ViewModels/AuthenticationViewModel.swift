@@ -5,6 +5,12 @@
 import Foundation
 
 class AuthenticationViewModel : ObservableObject {
+    // Inject the AuthenticationManager
+    var authManager: AuthenticationManager
+
+    init(authManager: AuthenticationManager) {
+        self.authManager = authManager
+    }
 
     @Published var username: String = ""
     @Published var email: String = ""
@@ -22,6 +28,7 @@ class AuthenticationViewModel : ObservableObject {
             case .success(let authenticatedUser):
                 // Handle the authenticated user information
                 print(authenticatedUser)
+                self.authManager.authenticate(with: authenticatedUser.token)
             case .failure(let error):
                 // Handle the error
                 print("Error: \(error)")

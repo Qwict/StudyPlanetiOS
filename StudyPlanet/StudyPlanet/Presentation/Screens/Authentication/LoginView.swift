@@ -8,10 +8,11 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
 
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel = AuthenticationViewModel()
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel = AuthenticationViewModel(
+            authManager: AuthenticationManager()
+    )
 
     var body: some View {
-        NavigationStack{
             VStack{
                 Image("StudyPlanetLogo")
                         .resizable()
@@ -38,7 +39,6 @@ struct LoginView: View {
 
                 Button{
                     authenticationViewModel.login(email: email, password: password)
-
                 } label: {
                     HStack {
                         Text("Login")
@@ -67,6 +67,5 @@ struct LoginView: View {
                             .foregroundColor(.primary)
                 }
             }
-        }
     }
 }

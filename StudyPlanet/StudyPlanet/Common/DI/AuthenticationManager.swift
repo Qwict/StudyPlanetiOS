@@ -11,6 +11,7 @@ class AuthenticationManager: ObservableObject {
     @Published var isAuthenticated: Bool = false
 
     init() {
+        print("Creating AuthenticationManager")
         // Check if a valid token exists on app launch
         if let token = KeychainService.shared.loadToken(), isValidToken(token) {
             isAuthenticated = true
