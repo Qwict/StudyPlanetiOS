@@ -5,38 +5,36 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var authManager: AuthenticationManager
+    @StateObject private var viewModel: AuthenticationViewModel
+    init(authManager: AuthenticationManager) {
+        _viewModel = StateObject(
+                wrappedValue: AuthenticationViewModel(authManager: authManager)
+        )
+    }
 
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            ProgressView(value: 30, total: 100)
 
             NavigationLink {
                 TimeSelectionView()
-                        .navigationBarBackButtonHidden()
+//                        .navigationBarBackButtonHidden()
             } label: {
-                HStack(spacing: 3) {
-                    Text("Discover new planets")
-                            .fontWeight(.bold)
-                }
-                        .font(.system(size: 14))
-                        .foregroundColor(.primary)
+                Text("Discover new planets")
+                   .fontWeight(.bold)
             }
 
             NavigationLink {
                 TimeSelectionView()
-                        .navigationBarBackButtonHidden()
+//                        .navigationBarBackButtonHidden()
             } label: {
-                Button("Start exploring") {
-                }
+                Text("Explore my planets")
+                        .fontWeight(.bold)
             }
 
 
             Button("Logout") {
-                authManager.signOut()
+                viewModel.signOut()
             }
                 .padding()
                 .foregroundColor(.white)

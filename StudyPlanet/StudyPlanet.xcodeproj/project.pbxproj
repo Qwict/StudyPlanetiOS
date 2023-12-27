@@ -3,35 +3,50 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A75B01D020A8E0E80C520CC /* DiscoverdPlanetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B00600AF5634BB62E5F0 /* DiscoverdPlanetsViewModel.swift */; };
+		2A75B0F5D976817AE374A434 /* StaticLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BE077DEEA2AC5B438E4F /* StaticLogger.swift */; };
 		2A75B0FE5C7526D8B3AECDED /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B0FE8D20001099654683 /* MainView.swift */; };
 		2A75B1CC2793F34C2D92FA6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B65466A74265A7D537AB /* ContentView.swift */; };
+		2A75B227F2CA7E8B071D9BAD /* GetPlanetsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B9E8EA5D17E59CC85C4C /* GetPlanetsUseCase.swift */; };
 		2A75B2415361536F2B258FC5 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B7AB6ACAB89643E24E3E /* Dependencies.swift */; };
 		2A75B2C0763F1C60D840F85C /* StudyPlanetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BE1DB8E52B632DB853C4 /* StudyPlanetApp.swift */; };
 		2A75B36E0F886AA93A1CFB6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A75B151B02CD6D79861E332 /* Preview Assets.xcassets */; };
 		2A75B3DAA24D8AC3C7514442 /* StudyPlanetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B7583456F35093D683AE /* StudyPlanetUITests.swift */; };
 		2A75B3EE977F02AC97FC6A7F /* PlanetDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B5C19CA553D0A0E80F2C /* PlanetDto.swift */; };
+		2A75B463235E495B9CE6AB5C /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BDCD0609FCE1357B5BEA /* Container.swift */; };
 		2A75B4913B6630BA9105CD86 /* LoginAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B469F5F6421599231ECD /* LoginAction.swift */; };
+		2A75B5AC70F0CD7AD0C705A6 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B7AD9424F9EB795A09D2 /* UserEntity.swift */; };
 		2A75B5C5295D153E4D3085D4 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B51F0B45B7365403377A /* ProgressBar.swift */; };
+		2A75B61A289742C738C55FCA /* StudyPlanetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B634BA96C2119A2A8832 /* StudyPlanetRepository.swift */; };
+		2A75B63AA07A1D456B953EAB /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B00BA824E27AA0A8935E /* Resolver.swift */; };
 		2A75B6522CC95CEC94BC90F1 /* LoginRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BFC66175184A2792006E /* LoginRequestDto.swift */; };
-		2A75B6FB60EECAD6A986622F /* GetVersionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B5A8AED3949DA5E9729E /* GetVersionAction.swift */; };
 		2A75B72F0A7F328012E68F83 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B2A376A4E177E0F573C3 /* InputView.swift */; };
 		2A75B796DFF1894370FFA42C /* VersionDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B449740EC8EB5CE3CA05 /* VersionDto.swift */; };
 		2A75B79746FE9819C16ED7E9 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B78515960A9A206278B7 /* AuthenticationManager.swift */; };
+		2A75B7BD7EEC3C11261D0D67 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B6DB1116635CB483C143 /* Constants.swift */; };
 		2A75B7E184D2C9ACBA0C5021 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A75B777EA79F607D6334DC5 /* Assets.xcassets */; };
 		2A75B7FA7B25BC5143DAB88B /* UserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B08CE0C04379BA08E90E /* UserDto.swift */; };
+		2A75B8E3688E6AAD21544451 /* StudyPlanetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BA9E899063CB5A706D67 /* StudyPlanetApi.swift */; };
 		2A75B9731D38D797A8A6CB72 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B04714B258FF4C274B16 /* KeychainService.swift */; };
+		2A75B9B6B786B131F8D18CE7 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B5DE0991D8A1BF43A0C9 /* MainViewModel.swift */; };
 		2A75B9E090546D3F2C64E6D1 /* AuthenticatedUserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B19D887C47D2E788A94C /* AuthenticatedUserDto.swift */; };
 		2A75BA31A93B574EB8DA7E74 /* TimeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BF7973E94F4C173EEFBE /* TimeSelectionView.swift */; };
+		2A75BAB721C4BA3DC111E965 /* GetVersionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BEDFAB9F7BF48DB07CA9 /* GetVersionAction.swift */; };
 		2A75BB83D2D1C0001D565654 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BD53CFB0C02247C45CF6 /* StudyView.swift */; };
 		2A75BBA773AB5BC0D90E85A9 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B49E2C0911E12D17AE2A /* RegistrationView.swift */; };
 		2A75BCDBF2BE3F7325CFC13E /* StudyPlanetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BFD354DE6BB1FBD84917 /* StudyPlanetUITestsLaunchTests.swift */; };
 		2A75BDD3F1B8BBD4A816FB93 /* StudyPlanetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BA41E0048F76D7D3B3D5 /* StudyPlanetTests.swift */; };
+		2A75BDF72215A532C7CF8F59 /* RegisterRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BE53460328F3142049FC /* RegisterRequestDto.swift */; };
+		2A75BEA385C288862DD4DEFA /* DiscoveredPlanetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B2862F0D0494687CA5C8 /* DiscoveredPlanetsView.swift */; };
 		2A75BF0FFE49775F73D807B5 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B7F4130AB278AE3D50B7 /* AuthenticationViewModel.swift */; };
+		2A75BF109E3D343D8A8EDA08 /* PlanetEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BC6A1C11DE22A4D17D2F /* PlanetEntity.swift */; };
+		2A75BF32E02DAB55570424C6 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B5EDA226B6D08A1C651C /* Wrappers.swift */; };
 		2A75BF89F8C3E1C60A455DBA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BEC593FA9DD5DE492898 /* LoginView.swift */; };
+		EB7E58422B3C569100BDE246 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = EB7E58412B3C569100BDE246 /* Swinject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,31 +67,45 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A75B00600AF5634BB62E5F0 /* DiscoverdPlanetsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverdPlanetsViewModel.swift; sourceTree = "<group>"; };
+		2A75B00BA824E27AA0A8935E /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		2A75B04714B258FF4C274B16 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		2A75B08CE0C04379BA08E90E /* UserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
 		2A75B0FE8D20001099654683 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2A75B151B02CD6D79861E332 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A75B19D887C47D2E788A94C /* AuthenticatedUserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticatedUserDto.swift; sourceTree = "<group>"; };
+		2A75B2862F0D0494687CA5C8 /* DiscoveredPlanetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredPlanetsView.swift; sourceTree = "<group>"; };
 		2A75B2A376A4E177E0F573C3 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		2A75B3592D0306AE95DD3385 /* StudyPlanet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyPlanet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A75B449740EC8EB5CE3CA05 /* VersionDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionDto.swift; sourceTree = "<group>"; };
 		2A75B469F5F6421599231ECD /* LoginAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAction.swift; sourceTree = "<group>"; };
 		2A75B49E2C0911E12D17AE2A /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		2A75B51F0B45B7365403377A /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		2A75B5A8AED3949DA5E9729E /* GetVersionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetVersionAction.swift; sourceTree = "<group>"; };
 		2A75B5C19CA553D0A0E80F2C /* PlanetDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetDto.swift; sourceTree = "<group>"; };
 		2A75B5C1B02BD8772CC5CD24 /* StudyPlanetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudyPlanetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A75B5DE0991D8A1BF43A0C9 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		2A75B5EDA226B6D08A1C651C /* Wrappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
+		2A75B634BA96C2119A2A8832 /* StudyPlanetRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPlanetRepository.swift; sourceTree = "<group>"; };
 		2A75B65466A74265A7D537AB /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2A75B68F0BDE1FA9CD44924B /* StudyPlanetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudyPlanetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A75B6DB1116635CB483C143 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2A75B7583456F35093D683AE /* StudyPlanetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanetUITests.swift; sourceTree = "<group>"; };
 		2A75B777EA79F607D6334DC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A75B78515960A9A206278B7 /* AuthenticationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2A75B7AB6ACAB89643E24E3E /* Dependencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		2A75B7AD9424F9EB795A09D2 /* UserEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
 		2A75B7F4130AB278AE3D50B7 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		2A75B9E8EA5D17E59CC85C4C /* GetPlanetsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPlanetsUseCase.swift; sourceTree = "<group>"; };
 		2A75BA41E0048F76D7D3B3D5 /* StudyPlanetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanetTests.swift; sourceTree = "<group>"; };
+		2A75BA9E899063CB5A706D67 /* StudyPlanetApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyPlanetApi.swift; sourceTree = "<group>"; };
+		2A75BC6A1C11DE22A4D17D2F /* PlanetEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetEntity.swift; sourceTree = "<group>"; };
 		2A75BD53CFB0C02247C45CF6 /* StudyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyView.swift; sourceTree = "<group>"; };
+		2A75BDCD0609FCE1357B5BEA /* Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		2A75BE077DEEA2AC5B438E4F /* StaticLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticLogger.swift; sourceTree = "<group>"; };
 		2A75BE1DB8E52B632DB853C4 /* StudyPlanetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanetApp.swift; sourceTree = "<group>"; };
+		2A75BE53460328F3142049FC /* RegisterRequestDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterRequestDto.swift; sourceTree = "<group>"; };
 		2A75BEC593FA9DD5DE492898 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2A75BEDFAB9F7BF48DB07CA9 /* GetVersionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetVersionAction.swift; sourceTree = "<group>"; };
 		2A75BF7973E94F4C173EEFBE /* TimeSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSelectionView.swift; sourceTree = "<group>"; };
 		2A75BFC66175184A2792006E /* LoginRequestDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequestDto.swift; sourceTree = "<group>"; };
 		2A75BFD354DE6BB1FBD84917 /* StudyPlanetUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyPlanetUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -95,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB7E58422B3C569100BDE246 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				2A75B5DF88339F99AFA99FF6 /* Authentication */,
+				2A75B9E8EA5D17E59CC85C4C /* GetPlanetsUseCase.swift */,
+				2A75BEDFAB9F7BF48DB07CA9 /* GetVersionAction.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -142,6 +174,7 @@
 			children = (
 				2A75B69A56CAF5B6912269E3 /* Remote */,
 				2A75BF6163BA570F56B23D71 /* Local */,
+				2A75B634BA96C2119A2A8832 /* StudyPlanetRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -167,6 +200,11 @@
 			isa = PBXGroup;
 			children = (
 				2A75B3C2126A465A5B4FDC13 /* DI */,
+				2A75B00BA824E27AA0A8935E /* Resolver.swift */,
+				2A75B5EDA226B6D08A1C651C /* Wrappers.swift */,
+				2A75BDCD0609FCE1357B5BEA /* Container.swift */,
+				2A75B6DB1116635CB483C143 /* Constants.swift */,
+				2A75BE077DEEA2AC5B438E4F /* StaticLogger.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -175,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				2A75B469F5F6421599231ECD /* LoginAction.swift */,
-				2A75B5A8AED3949DA5E9729E /* GetVersionAction.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -184,8 +221,18 @@
 			isa = PBXGroup;
 			children = (
 				2A75BA9240BCDD7CCAEAB7CA /* DTO */,
+				2A75BA9E899063CB5A706D67 /* StudyPlanetApi.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		2A75B7C65D7BB7E1B278076B /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				2A75BC6A1C11DE22A4D17D2F /* PlanetEntity.swift */,
+				2A75B7AD9424F9EB795A09D2 /* UserEntity.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		2A75BA9240BCDD7CCAEAB7CA /* DTO */ = {
@@ -196,6 +243,7 @@
 				2A75B19D887C47D2E788A94C /* AuthenticatedUserDto.swift */,
 				2A75BFC66175184A2792006E /* LoginRequestDto.swift */,
 				2A75B449740EC8EB5CE3CA05 /* VersionDto.swift */,
+				2A75BE53460328F3142049FC /* RegisterRequestDto.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -207,6 +255,7 @@
 				2A75BD53CFB0C02247C45CF6 /* StudyView.swift */,
 				2A75BD53FA5645C5BA0835B4 /* Authentication */,
 				2A75BF7973E94F4C173EEFBE /* TimeSelectionView.swift */,
+				2A75B2862F0D0494687CA5C8 /* DiscoveredPlanetsView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -275,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				2A75B04714B258FF4C274B16 /* KeychainService.swift */,
+				2A75B7C65D7BB7E1B278076B /* Entities */,
 			);
 			path = Local;
 			sourceTree = "<group>";
@@ -283,6 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				2A75B7F4130AB278AE3D50B7 /* AuthenticationViewModel.swift */,
+				2A75B5DE0991D8A1BF43A0C9 /* MainViewModel.swift */,
+				2A75B00600AF5634BB62E5F0 /* DiscoverdPlanetsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -321,6 +373,9 @@
 			dependencies = (
 			);
 			name = StudyPlanet;
+			packageProductDependencies = (
+				EB7E58412B3C569100BDE246 /* Swinject */,
+			);
 			productName = StudyPlanet;
 			productReference = 2A75B3592D0306AE95DD3385 /* StudyPlanet.app */;
 			productType = "com.apple.product-type.application";
@@ -360,6 +415,9 @@
 				Base,
 			);
 			mainGroup = 2A75B1E888823D9857914CF8;
+			packageReferences = (
+				EB7E58402B3C569100BDE246 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = 2A75BBA89ED0ADBAEF4F4400 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -412,7 +470,6 @@
 				2A75B9E090546D3F2C64E6D1 /* AuthenticatedUserDto.swift in Sources */,
 				2A75B6522CC95CEC94BC90F1 /* LoginRequestDto.swift in Sources */,
 				2A75BF0FFE49775F73D807B5 /* AuthenticationViewModel.swift in Sources */,
-				2A75B6FB60EECAD6A986622F /* GetVersionAction.swift in Sources */,
 				2A75B796DFF1894370FFA42C /* VersionDto.swift in Sources */,
 				2A75B9731D38D797A8A6CB72 /* KeychainService.swift in Sources */,
 				2A75B72F0A7F328012E68F83 /* InputView.swift in Sources */,
@@ -422,6 +479,21 @@
 				2A75BBA773AB5BC0D90E85A9 /* RegistrationView.swift in Sources */,
 				2A75BA31A93B574EB8DA7E74 /* TimeSelectionView.swift in Sources */,
 				2A75B5C5295D153E4D3085D4 /* ProgressBar.swift in Sources */,
+				2A75B9B6B786B131F8D18CE7 /* MainViewModel.swift in Sources */,
+				2A75BF109E3D343D8A8EDA08 /* PlanetEntity.swift in Sources */,
+				2A75B61A289742C738C55FCA /* StudyPlanetRepository.swift in Sources */,
+				2A75B63AA07A1D456B953EAB /* Resolver.swift in Sources */,
+				2A75BF32E02DAB55570424C6 /* Wrappers.swift in Sources */,
+				2A75B463235E495B9CE6AB5C /* Container.swift in Sources */,
+				2A75BEA385C288862DD4DEFA /* DiscoveredPlanetsView.swift in Sources */,
+				2A75B01D020A8E0E80C520CC /* DiscoverdPlanetsViewModel.swift in Sources */,
+				2A75B227F2CA7E8B071D9BAD /* GetPlanetsUseCase.swift in Sources */,
+				2A75B8E3688E6AAD21544451 /* StudyPlanetApi.swift in Sources */,
+				2A75B7BD7EEC3C11261D0D67 /* Constants.swift in Sources */,
+				2A75B0F5D976817AE374A434 /* StaticLogger.swift in Sources */,
+				2A75BDF72215A532C7CF8F59 /* RegisterRequestDto.swift in Sources */,
+				2A75B5AC70F0CD7AD0C705A6 /* UserEntity.swift in Sources */,
+				2A75BAB721C4BA3DC111E965 /* GetVersionAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +622,10 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwict.StudyPlanet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -590,7 +665,10 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qwict.StudyPlanet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -664,7 +742,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -725,6 +804,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EB7E58402B3C569100BDE246 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EB7E58412B3C569100BDE246 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EB7E58402B3C569100BDE246 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2A75BD4590FF12CC45B486E6 /* Project object */;
 }

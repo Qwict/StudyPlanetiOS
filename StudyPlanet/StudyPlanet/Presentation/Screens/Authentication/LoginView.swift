@@ -8,9 +8,13 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
 
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel = AuthenticationViewModel(
-            authManager: AuthenticationManager()
-    )
+    @StateObject private var viewModel: AuthenticationViewModel
+    init(authManager: AuthenticationManager) {
+        _viewModel = StateObject(
+            wrappedValue: AuthenticationViewModel(authManager: authManager)
+        )
+    }
+
 
     var body: some View {
             VStack{
@@ -37,8 +41,9 @@ struct LoginView: View {
                 .padding(.horizontal)
                 .padding(.top, 12)
 
+
                 Button{
-                    authenticationViewModel.login(email: email, password: password)
+                    viewModel.login(email: email, password: password)
                 } label: {
                     HStack {
                         Text("Login")

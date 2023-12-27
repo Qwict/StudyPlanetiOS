@@ -4,12 +4,12 @@
 
 import Foundation
 
-struct LoginRequest: Encodable {
+public struct LoginRequest: Encodable {
     let email: String
     let password: String
 }
 
-struct LoginDecode: Decodable {
+public struct LoginDecode: Decodable {
     let email: String
     let password: String
 }

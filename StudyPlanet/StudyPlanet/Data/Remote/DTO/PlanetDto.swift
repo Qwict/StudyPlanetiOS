@@ -4,7 +4,7 @@
 
 import Foundation
 
-struct PlanetDto: Decodable {
+public struct PlanetDto: Decodable {
     let name: String
     let id: Int
 }

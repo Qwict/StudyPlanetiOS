@@ -8,10 +8,13 @@
 
 import SwiftUI
 
+/// The main entry point for the Study Planet application.
 @main
 struct StudyPlanetApp: App {
-    let authManager = AuthenticationManager()
+    /// State object for managing authentication within the app.
+    @StateObject private var authManager = AuthenticationManager()
 
+    /// The body of the main scene, displaying the content of the app.
     var body: some Scene {
         WindowGroup {
             ContentView()

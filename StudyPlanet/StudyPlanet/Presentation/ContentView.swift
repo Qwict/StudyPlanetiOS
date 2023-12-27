@@ -8,23 +8,20 @@
 
 import SwiftUI
 
+/// The main content view of the Study Planet app.
 struct ContentView: View {
+    /// The authentication manager provided by the environment.
     @EnvironmentObject var authManager: AuthenticationManager
 
+    /// The body of the content view.
     var body: some View {
-        NavigationView {
+        NavigationStack {
             if authManager.isAuthenticated {
-                MainView()
+                MainView(authManager: authManager)
             } else {
-                LoginView()
+                LoginView(authManager: authManager)
             }
+//        .navigationTitle("Study Planet")
         }
-        .navigationTitle("Study Planet")
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

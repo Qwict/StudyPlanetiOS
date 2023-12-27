@@ -1,5 +1,6 @@
 //
 // Created by Joris Van Duyse on 21/12/2023.
+// Based on keychain tutorial by TODO
 //
 
 import Foundation
@@ -7,12 +8,18 @@ import Foundation
 import Foundation
 import Security
 
+/// A service for managing secure storage of authentication tokens in the Keychain.
 class KeychainService {
 
+    /// The shared instance of the `KeychainService`.
     static let shared = KeychainService()
 
+    /// The service identifier used for storing tokens in the Keychain.
     private let service = "com.qwict.studyplanet"
 
+    /// Saves the authentication token to the Keychain.
+    ///
+    /// - Parameter token: The authentication token to be saved.
     func saveToken(_ token: String) {
         guard let data = token.data(using: .utf8) else { return }
 
@@ -34,6 +41,9 @@ class KeychainService {
         }
     }
 
+    /// Loads the authentication token from the Keychain.
+    ///
+    /// - Returns: The authentication token if found; otherwise, `nil`.
     func loadToken() -> String? {
         // Create a query for the Keychain
         let query: [String: Any] = [
@@ -59,6 +69,7 @@ class KeychainService {
         }
     }
 
+    /// Deletes the authentication token from the Keychain.
     func deleteToken() {
         // Create a query for the Keychain
         let query: [String: Any] = [
