@@ -172,7 +172,8 @@ struct StudyScreen: View {
             Alert(
                     title: Text("Exit"),
                     message: Text("Are you sure you want to stop" + (planet.name == "Galaxy" ? "" : " studying on \(planet.name)") + "?"),
-                    primaryButton: .destructive(Text("Yes"), action: {
+                    primaryButton: .destructive(Text("Yes"),
+                    action: {
                         presentationMode.wrappedValue.dismiss()
                     }),
                     secondaryButton: .default(Text("No"))

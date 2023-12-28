@@ -25,7 +25,7 @@ class AuthenticationViewModel : ObservableObject {
         authManager.isAuthenticated
     }
 
-    func signOut() {
+    func logout() {
         authManager.signOut()
     }
 

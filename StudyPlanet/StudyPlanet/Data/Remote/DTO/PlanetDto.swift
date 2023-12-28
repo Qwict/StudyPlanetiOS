@@ -10,7 +10,7 @@ public struct PlanetDto: Decodable, Identifiable {
 }
 
 public struct MockData {
-    static let planets = [
+    static let planets: [PlanetDto] = [
         PlanetDto(name: "Earth", id: 1),
         PlanetDto(name: "Mars", id: 2),
         PlanetDto(name: "Jupiter", id: 3),

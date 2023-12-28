@@ -17,7 +17,7 @@ struct StudyPlanetApp: App {
     /// The body of the main scene, displaying the content of the app.
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(authManager: authManager)
                 .environmentObject(authManager)
         }
     }

@@ -33,6 +33,14 @@ struct ContentView: View {
     @EnvironmentObject var authManager: AuthenticationManager
     @State var selectedTab: Tabs = .home
     @State var orientation = UIDeviceOrientation.unknown
+    @State private var showingLogoutAlert = false
+
+    @StateObject private var viewModel: AuthenticationViewModel
+    init(authManager: AuthenticationManager) {
+        _viewModel = StateObject(
+                wrappedValue: AuthenticationViewModel(authManager: authManager)
+        )
+    }
 
     enum Tabs: String {
         case home = "Home"
@@ -60,12 +68,33 @@ struct ContentView: View {
                                 Label("Discover", systemImage: "mug")
                             }
                             .tag(Tabs.discover)
-                }.navigationTitle(selectedTab.rawValue)
+                }
+                        .navigationTitle(selectedTab.rawValue)
                         .accentColor(.black)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button(action: { showingLogoutAlert = true }) {
+                                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                                }
+
+                            }
+                        }
+                        .alert(isPresented: $showingLogoutAlert) {
+                            Alert(
+                                    title: Text("Exit"),
+                                    message: Text("Are you sure you want to logout?"),
+                                    primaryButton: .destructive(Text("Yes"),
+                                    action: {
+                                        viewModel.logout()
+                                    }),
+                                    secondaryButton: .default(Text("No"))
+                            )
+                        }
             } else {
                 LoginView(authManager: authManager)
             }
         }
+
 
     }
 }

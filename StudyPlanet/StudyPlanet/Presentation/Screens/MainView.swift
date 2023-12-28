@@ -26,32 +26,8 @@ struct MainView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.bottom, 32)
+
             ProgressView(value: 30, total: 100)
-
-            NavigationLink {
-                TimeSelectionView(planet: PlanetDto(name: "Galaxy", id: 0))
-//                        .navigationBarBackButtonHidden()
-            } label: {
-                Text("Discover new planets")
-                   .fontWeight(.bold)
-            }
-
-            NavigationLink {
-                DiscoveredPlanetsView()
-//                        .navigationBarBackButtonHidden()
-            } label: {
-                Text("Explore my planets")
-                        .fontWeight(.bold)
-            }
-
-
-            Button("Logout") {
-                viewModel.signOut()
-            }
-                .padding()
-                .foregroundColor(.white)
-                .background(Color.red)
-                .cornerRadius(8)
         }
 //        }
     }

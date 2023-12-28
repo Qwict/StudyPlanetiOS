@@ -25,6 +25,7 @@
 		2A75B486BCF81B30ACE5A4B1 /* ExploreDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B2EB95F2EE66BDBB9F25 /* ExploreDto.swift */; };
 		2A75B4913B6630BA9105CD86 /* LoginAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B469F5F6421599231ECD /* LoginAction.swift */; };
 		2A75B5097BC24C208B35FC6A /* StopWatchUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BB0C49C1CAD9FA5B68E1 /* StopWatchUnit.swift */; };
+		2A75B599840C0EA38F502E78 /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B02EE9E6018BE372A7EB /* StudyViewModel.swift */; };
 		2A75B5AC70F0CD7AD0C705A6 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B7AD9424F9EB795A09D2 /* UserEntity.swift */; };
 		2A75B5C5295D153E4D3085D4 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B51F0B45B7365403377A /* ProgressBar.swift */; };
 		2A75B61A289742C738C55FCA /* StudyPlanetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B634BA96C2119A2A8832 /* StudyPlanetRepository.swift */; };
@@ -78,6 +79,7 @@
 /* Begin PBXFileReference section */
 		2A75B00600AF5634BB62E5F0 /* DiscoverdPlanetsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverdPlanetsViewModel.swift; sourceTree = "<group>"; };
 		2A75B00BA824E27AA0A8935E /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
+		2A75B02EE9E6018BE372A7EB /* StudyViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
 		2A75B04714B258FF4C274B16 /* KeychainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		2A75B08CE0C04379BA08E90E /* UserDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
 		2A75B0FE8D20001099654683 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 				2A75B7F4130AB278AE3D50B7 /* AuthenticationViewModel.swift */,
 				2A75B5DE0991D8A1BF43A0C9 /* MainViewModel.swift */,
 				2A75B00600AF5634BB62E5F0 /* DiscoverdPlanetsViewModel.swift */,
+				2A75B02EE9E6018BE372A7EB /* StudyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				2A75B0537CE31D02BC2C382B /* MultiComponentPicker.swift in Sources */,
 				2A75B1CBB661F347AA9ED134 /* PlanetImage.swift in Sources */,
 				2A75BCEFE5AD1F841C6FF2F0 /* RegisterAction.swift in Sources */,
+				2A75B599840C0EA38F502E78 /* StudyViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
