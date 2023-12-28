@@ -6,12 +6,20 @@
 import SwiftUI
 
 struct StudyScreen: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    let planet: PlanetDto
+    var selectedTime: Int
+
     @State private var timer: Timer?
     @Binding var progress: CGFloat
-    @State private var progressTime = 3600
+    @State private var progressTime: Int
     @State private var progressBar = 0.0
     @State private var isRunning = false
     @State private var barTick = Double(1 / 3600)
+
+    @State var isAccordionExpanded: Bool = true
+    @State private var showingExitAlert = false
 
     private var barColor: Color
     private var animationTime: TimeInterval = 0.3
@@ -29,17 +37,25 @@ struct StudyScreen: View {
     }
 
 
-    public init(selectedTime: Int) {
+    init(selectedTime: Int, planet: PlanetDto) {
+        print("StudyScreen init")
         self._progress = .constant(CGFloat(selectedTime))
+        self._progressTime = .init(initialValue: selectedTime)  // Initialize progressTime here
+        self.selectedTime = selectedTime
+        self.planet = planet
         self.barColor = .white
-        startTimer()
+//        self.isRunning = true
+//        startTimer()
     }
 
     private func startTimer() {
+        print("startTimer")
         if isRunning{
+            print("isRunning")
             timer?.invalidate()
         } else{
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                print("timer: \(progressTime)")
                 self.progressTime -= 1
             }
         }
@@ -50,44 +66,60 @@ struct StudyScreen: View {
 
     var body: some View {
         VStack {
-//            GeometryReader{ geo in
-//                ZStack(alignment: .leading){
-//                    Rectangle()
-//                            .fill(barColor.opacity(0.3))
-//
-//                    Rectangle()
-//                            .fill(barColor)
-//                            .frame(width: min(geo.size.width, geo.size.width * progress))
-//                            .animation(.linear)
-//                }.cornerRadius(25.0)
-//            }
+            Text(planet.name)
+                    .font(.title)
+                    .padding()
+            VStack {
+                PlanetImage(planet: planet)
+                let progressBarProgression = 1 - Double(progressTime) / Double(selectedTime)
+                let percentageProgression = progressBarProgression * 100
+                ProgressView(
+                        value: progressBarProgression,
+                        label: {
+                            Text("Progress...")
 
-            ProgressView(
-                    value: progressBar,
-                    label: {
-                        Text("Processing...")
+                        },
+                        currentValueLabel: {
+                            Text(percentageProgression < 0 ? "0%" : "\(Int(percentageProgression))%")
+                                    .foregroundColor(.gray)
+                        }
 
-                    },
-                    currentValueLabel: { Text(progressBar.formatted(.percent.precision(.fractionLength(0)))) }
-            )
-            .padding()
-            .task {
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                    self.progressBar += barTick
+                )
+                        .padding(.horizontal)
+                        .task {
+                            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                                self.progressBar += barTick
+                            }
+                        }
+                VStack {
+                    DisclosureGroup("Remaining time", isExpanded: $isAccordionExpanded) {
+                        HStack(spacing: 10) {
+                            StopWatchUnit(timeUnit: hours, timeUnitText: "HR", color: .black)
+                            Text(":")
+//                        .font(.system(size: 48))
+//                        .offset(y: -18)
+                            StopWatchUnit(timeUnit: minutes, timeUnitText: "MIN", color: .black)
+                            Text(":")
+//                        .font(.system(size: 48))
+//                        .offset(y: -18)
+                            StopWatchUnit(timeUnit: seconds, timeUnitText: "SEC", color: .black)
+                        }
+                    }.accentColor(.black)
+                            .padding()
+                            .frame(width: 300, height: 70, alignment: .center)
                 }
             }
+                    .background(
+//                            UIImage(named: planet.name + "Small")?.averageColor?.asColor.opacity(0.5)
+//                                    ??
+                                    .black.opacity(0.1)
+                    )
+                    .cornerRadius(20)
+//                    .shadow(color: Color.black, radius: 4)
+                    .padding(.horizontal)
 
-            HStack(spacing: 10){
-                StopWatchUnit(timeUnit: hours, timeUnitText: "HR", color: .black)
-                Text(":")
-                        .font(.system(size: 48))
-                        .offset(y: -18)
-                StopWatchUnit(timeUnit: minutes, timeUnitText: "MIN", color: .black)
-                Text(":")
-                        .font(.system(size: 48))
-                        .offset(y: -18)
-                StopWatchUnit(timeUnit: seconds, timeUnitText: "SEC", color: .black)
-            }
+
+
 
             HStack{
                 Button(action: {
@@ -110,64 +142,44 @@ struct StudyScreen: View {
                                 .foregroundColor(.black)
                     }
                 }
+//                Button(action: {
+//                    progressTime = 3600
+//                }) {
+//                    ZStack{
+//                        RoundedRectangle(cornerRadius: 15.0)
+//                                .frame(width: 120, height: 50, alignment: .center)
+//                                .foregroundColor(.gray)
+//                        Text("Reset")
+//                                .font(.title)
+//                                .foregroundColor(.white)
+//                    }
+//                }
                 Button(action: {
-                    progressTime = 3600
+                    showingExitAlert = true
                 }) {
                     ZStack{
-                        RoundedRectangle(cornerRadius: 15.0)
-                                .frame(width: 120, height: 50, alignment: .center)
+                        RoundedRectangle(cornerRadius: 10.0)
+                                .frame(width: 96, height: 45, alignment: .center)
                                 .foregroundColor(.gray)
-                        Text("Reset")
-                                .font(.title)
+                        Text("Exit")
+                                .font(.title2)
                                 .foregroundColor(.white)
                     }
                 }
-
             }
+        }
+        .alert(isPresented: $showingExitAlert) {
+            Alert(
+                    title: Text("Exit"),
+                    message: Text("Are you sure you want to stop" + (planet.name == "Galaxy" ? "" : " studying on \(planet.name)") + "?"),
+                    primaryButton: .destructive(Text("Yes"), action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }),
+                    secondaryButton: .default(Text("No"))
+            )
         }
     }
 }
-
-struct StopWatchUnit: View{
-
-    var timeUnit: Int
-    var timeUnitText: String
-    var color: Color
-
-    var timeUnitStr: String{
-        let timeUnitStr = String(timeUnit)
-        return timeUnit < 10 ? "0" + timeUnitStr : timeUnitStr
-    }
-    var body: some View{
-        VStack{
-            ZStack{
-                RoundedRectangle(cornerRadius: 15.0)
-                        .stroke(style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                        .fill(color)
-                        .frame(width: 75, height: 75, alignment: .center)
-
-                HStack(spacing: 2){
-                    Text(timeUnitStr.substring(index: 0))
-                            .font(.system(size: 48))
-                            .frame(width: 28)
-
-                    Text(timeUnitStr.substring(index: 1))
-                            .font(.system(size: 48))
-                            .frame(width: 28)
-                }
-            }
-            Text(timeUnitText)
-                    .font(.system(size: 16))
-        }
-    }
-}
-
-//struct StopWatch_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StudyScreen()
-//                .preferredColorScheme(.dark)
-//    }
-//}
 
 extension String {
     func substring(index: Int) -> String {

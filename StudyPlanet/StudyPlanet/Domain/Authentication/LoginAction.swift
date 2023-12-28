@@ -8,7 +8,7 @@ import os
 /// A structure representing the action of logging in a user.
 struct LoginAction {
     /// The parameters required for the login request.
-    var parameters: LoginRequest
+    var parameters: LoginDto
 
     /// Injected dependency for interacting with the StudyPlanet API.
     @Inject

@@ -1,6 +1,6 @@
 //
 // Created by Joris Van Duyse on 27/12/2023.
-// Partially based on Medium article by Paul Allies (https://paulallies.medium.com/swift-dependency-injection-with-swinject-ad17e33c3910)
+// Partially based on Medium article by Paul Allies
 //
 
 import Swinject

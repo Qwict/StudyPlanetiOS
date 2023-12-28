@@ -12,22 +12,22 @@ public protocol StudyPlanetApiProtocol {
     /// - Parameters:
     ///   - token: The authentication token.
     ///   - completion: A closure to be called with the result containing a list of planets or an error.
-    func authenticate(token: String, completion: @escaping (Result<[PlanetDto], Error>) -> Void)
+    func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void)
 
     /// Logs in a user with the provided parameters and retrieves authentication information.
     ///
     /// - Parameters:
     ///   - parameters: The login request parameters.
     ///   - completion: A closure to be called with the result containing authenticated user information or an error.
-    func login(parameters: LoginRequest, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void)
-}
+    func login(parameters: LoginDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void)
 
-/// An enumeration representing errors that can occur during API interactions.
-enum APIError: Error {
-    /// Indicates a bad URL.
-    case badURL
-    /// Indicates a decoding error.
-    case decodingError
+    func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+
+    func startExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+
+    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
 }
 
 /// A class implementing the `StudyPlanetApiProtocol` for interacting with the StudyPlanet API.
@@ -38,14 +38,14 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
     /// - Parameters:
     ///   - token: The authentication token.
     ///   - completion: A closure to be called with the result containing a list of planets or an error.
-    func authenticate(token: String, completion: @escaping (Result<[PlanetDto], Error>) -> Void) {
-        guard let url = URL(string: Constants.BASE_URL + "/users") else {
-            completion(.failure(APIError.badURL))
-            return
-        }
-
-        let headers = ["Authorization": "\(token)"]
-        makeRequest(url: url, method: "GET", headers: headers, body: nil, completion: completion)
+    func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void) {
+        makeRequest(
+                urlEndPoint: "/users",
+                method: "GET",
+                headers: ["Authorization": "\(token)"],
+                body: nil,
+                completion: completion
+        )
     }
 
     /// Logs in a user with the provided parameters and retrieves authentication information.
@@ -53,30 +53,87 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
     /// - Parameters:
     ///   - parameters: The login request parameters.
     ///   - completion: A closure to be called with the result containing authenticated user information or an error.
-    func login(parameters: LoginRequest, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
-        guard let url = URL(string: Constants.BASE_URL + "/users/login") else {
-            completion(.failure(APIError.badURL))
-            return
-        }
+    func login(parameters: LoginDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
+        makeRequest(
+                urlEndPoint: "/users/login",
+                method: "POST",
+                headers: ["Content-Type": "application/json"],
+                body: parameters,
+                completion: completion
+        )
+    }
 
-        makeRequest(url: url, method: "POST", headers: ["Content-Type": "application/json"], body: parameters, completion: completion)
+    func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+        makeRequest(
+                urlEndPoint: "/users/register",
+                method: "POST",
+                headers: ["Content-Type": "application/json"],
+                body: parameters,
+                completion: completion
+        )
+    }
+
+
+    func startExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+        makeRequest(
+            urlEndPoint: "/users/startExploring",
+            method: "POST",
+            headers: ["Content-Type": "application/json"],
+            body: parameters,
+            completion: completion
+        )
+    }
+
+    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+        makeRequest(
+            urlEndPoint: "/users/stopExploring",
+            method: "PUT",
+            headers: ["Content-Type": "application/json"],
+            body: parameters,
+            completion: completion
+        )
+    }
+
+    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+        makeRequest(
+            urlEndPoint: "/users/startDiscovering",
+            method: "POST",
+            headers: ["Content-Type": "application/json"],
+            body: parameters,
+            completion: completion
+        )
+    }
+
+    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+        makeRequest(
+            urlEndPoint: "/users/stopDiscovering",
+            method: "PUT",
+            headers: ["Content-Type": "application/json"],
+            body: parameters,
+            completion: completion
+        )
     }
 
     /// Makes an HTTP request with the specified parameters and performs decoding of the response.
     ///
     /// - Parameters:
-    ///   - url: The URL for the request.
+    ///   - urlEndPoint: The URL endpoint for the request, will be appended to BASE_URL.
     ///   - method: The HTTP method for the request.
     ///   - headers: The headers for the request.
     ///   - body: The body parameters for the request.
     ///   - completion: A closure to be called with the result containing decoded response or an error.
     private func makeRequest<T: Decodable>(
-            url: URL,
+            urlEndPoint: String,
             method: String,
             headers: [String: String]?,
             body: Encodable?,
             completion: @escaping (Result<T, Error>) -> Void
     ) {
+        guard let url = URL(string: Constants.BASE_URL + urlEndPoint) else {
+            completion(.failure(ApiError.badURL))
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = method
 

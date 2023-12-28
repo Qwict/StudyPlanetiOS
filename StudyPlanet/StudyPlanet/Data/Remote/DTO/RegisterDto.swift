@@ -4,7 +4,7 @@
 
 import Foundation
 
-public struct RegisterRequestDto: Encodable {
+public struct RegisterDto: Encodable {
     let name: String
     let email: String
     let password: String

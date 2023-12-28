@@ -5,8 +5,7 @@
 import SwiftUI
 
 struct TimeSelectionView: View {
-    @EnvironmentObject var authManager: AuthenticationManager
-
+    let planet: PlanetDto
     @State private var selectedTime: Int = 0
     @State private var availableTimes = [
         "30 minutes": 1800,
@@ -14,28 +13,52 @@ struct TimeSelectionView: View {
         "2 hours": 7200
     ]
 
+    //TODO: make this live thu screen changes
+    @State private var selectedHour: Int = 0
+    @State private var selectedMinute: Int = 30
+
+    var columns = [
+        MultiComponentPicker.Column(
+                label: "h",
+                options: Array(0...4).map { MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }
+        ),
+        MultiComponentPicker.Column(
+                label: "min",
+                options: Array(0...59).map{ MultiComponentPicker.Column.Option(text: "\($0)", tag: $0) }
+        ),
+    ]
+
     var body: some View {
         VStack {
-            Text("Select your time")
-                .font(.title)
-                .padding()
+            VStack {
+                PlanetCard(planet: planet)
 
-            Picker(selection: $selectedTime, label: Text("Select your time")) {
-                ForEach(0 ..< 3) {
-                    Text(Array(availableTimes.keys)[$0])
-                }
+                MultiComponentPicker(
+                        columns: columns,
+                        selections: [$selectedHour, $selectedMinute]
+//                        selections: [
+//                            .constant(hours),
+//                            .constant(minutes)
+//                        ]
+                )
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(20)
+                    .shadow(color: Color.black.opacity(0.2), radius: 4)
+                    .padding(.horizontal)
 
             NavigationLink {
-                StudyScreen(selectedTime: 1800)
+                StudyScreen(
+                        selectedTime: selectedHour * 3600 + selectedMinute * 60,
+                        planet: planet
+                )
                         .navigationBarBackButtonHidden()
             } label: {
-                    Text("Select")
-                            .font(.title)
-                            .padding()
+                Text("Select")
+                        .font(.title)
+                        .padding()
             }
+                    .disabled(selectedHour == 0 && selectedMinute == 0)
 
         }
     }

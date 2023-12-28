@@ -36,7 +36,7 @@ class AuthenticationViewModel : ObservableObject {
     func login(email: String, password: String) {
         StaticLogger.log.debug("Calling login action")
         LoginAction(parameters:
-                LoginRequest(
+                LoginDto(
                         email: email,
                         password: password
                 )

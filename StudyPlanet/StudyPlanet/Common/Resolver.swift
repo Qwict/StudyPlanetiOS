@@ -1,5 +1,6 @@
 //
 // Created by Joris Van Duyse on 27/12/2023.
+// Based on Medium article by Paul Allies
 //
 
 /// A utility class for resolving dependencies using Inversion of Control (IoC).

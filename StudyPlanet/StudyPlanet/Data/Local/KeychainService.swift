@@ -60,13 +60,13 @@ class KeychainService {
         let status = SecItemCopyMatching(query as CFDictionary, &item)
 
         if status == errSecSuccess, let existingItem = item as? [String: Any],
-           let data = existingItem[kSecValueData as String] as? Data,
-           let token = String(data: data, encoding: .utf8) {
-            return token
-        } else {
-            print("Failed to load token from Keychain")
-            return nil
-        }
+            let data = existingItem[kSecValueData as String] as? Data,
+            let token = String(data: data, encoding: .utf8) {
+                return token
+            } else {
+                print("Failed to load token from Keychain")
+                return nil
+            }
     }
 
     /// Deletes the authentication token from the Keychain.

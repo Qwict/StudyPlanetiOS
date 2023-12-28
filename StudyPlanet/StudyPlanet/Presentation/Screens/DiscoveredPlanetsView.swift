@@ -7,9 +7,14 @@ import SwiftUI
 struct DiscoveredPlanetsView: View {
 
     var body: some View {
-        LazyVStack {
-            ForEach(0..<10) { _ in
-//                PlanetCardView()
+        VStack {
+//            Text("My Discovered Planets")
+//                    .font(.title)
+//                    .fontWeight(.bold)
+            List(MockData.planets) { planet in
+                NavigationLink(destination: TimeSelectionView(planet: planet)) {
+                    PlanetListItem(planet: planet)
+                }
             }
         }
     }

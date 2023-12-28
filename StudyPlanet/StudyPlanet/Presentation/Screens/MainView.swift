@@ -13,11 +13,23 @@ struct MainView: View {
     }
 
     var body: some View {
+//        NavigationView {
+
         VStack {
+            Image("StudyPlanetLogo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 196, height: 196)
+                    .padding(.vertical, 32)
+
+            Text("Welcome back, User")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.bottom, 32)
             ProgressView(value: 30, total: 100)
 
             NavigationLink {
-                TimeSelectionView()
+                TimeSelectionView(planet: PlanetDto(name: "Galaxy", id: 0))
 //                        .navigationBarBackButtonHidden()
             } label: {
                 Text("Discover new planets")
@@ -25,7 +37,7 @@ struct MainView: View {
             }
 
             NavigationLink {
-                TimeSelectionView()
+                DiscoveredPlanetsView()
 //                        .navigationBarBackButtonHidden()
             } label: {
                 Text("Explore my planets")
@@ -41,6 +53,7 @@ struct MainView: View {
                 .background(Color.red)
                 .cornerRadius(8)
         }
+//        }
     }
 }
 

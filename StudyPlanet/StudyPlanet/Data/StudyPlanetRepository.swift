@@ -4,20 +4,25 @@
 //
 
 public protocol StudyPlanetRepositoryProtocol {
-    func authenticate(token: String, completion: @escaping (Result<[PlanetDto], Error>) -> Void)
-    func login(parameters: LoginRequest, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void)
+    func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void)
+    func login(parameters: LoginDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void)
+    func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void)
 }
 
 public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
     @Inject private var apiService: StudyPlanetApiProtocol
 //    @Inject private var dao: PlanetDaoProtocol
 
-    public func authenticate(token: String, completion: @escaping (Result<[PlanetDto], Error>) -> Void) {
+    public func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void) {
         apiService.authenticate(token: token, completion: completion)
     }
 
-    public func login(parameters: LoginRequest, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
+    public func login(parameters: LoginDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
         apiService.login(parameters: parameters, completion: completion)
+    }
+
+    public func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
+        apiService.register(parameters: parameters, completion: completion)
     }
 
 //    public func insertWordsetCategory() -> AnyPublisher<WordsetCategory, Error> {
