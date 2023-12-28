@@ -8,6 +8,7 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
 
+    @EnvironmentObject var authManager: AuthenticationManager
     @StateObject private var viewModel: AuthenticationViewModel
     init(authManager: AuthenticationManager) {
         _viewModel = StateObject(
@@ -60,7 +61,7 @@ struct LoginView: View {
                 Spacer()
 
                 NavigationLink {
-                    RegistrationView()
+                    RegistrationView(authManager: authManager)
                             .navigationBarBackButtonHidden()
                 } label: {
                     HStack(spacing: 3) {

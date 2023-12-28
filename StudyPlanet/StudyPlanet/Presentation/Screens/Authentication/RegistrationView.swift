@@ -11,6 +11,13 @@ struct RegistrationView : View {
     @State private var confirmPassword = ""
     @Environment(\.dismiss) var dismiss
 
+    @StateObject private var viewModel: AuthenticationViewModel
+    init(authManager: AuthenticationManager) {
+        _viewModel = StateObject(
+                wrappedValue: AuthenticationViewModel(authManager: authManager)
+        )
+    }
+
     var body: some View {
         VStack{
             Image("StudyPlanetLogo")
@@ -21,9 +28,10 @@ struct RegistrationView : View {
 
             VStack(spacing: 24) {
                 InputView(
-                        text: $email,
+                        text: $username,
                         title: "Username",
-                        placeholder: "username")
+                        placeholder: "username"
+                )
                 InputView(
                         text: $email,
                         title: "Email",
@@ -46,7 +54,8 @@ struct RegistrationView : View {
                     .padding(.top, 12)
 
             Button{
-                print("Register button tapped")
+                viewModel.register(username: username, email: email, password: password, confirmPassword: confirmPassword)
+                dismiss()
             } label: {
                 HStack {
                     Text("Register")

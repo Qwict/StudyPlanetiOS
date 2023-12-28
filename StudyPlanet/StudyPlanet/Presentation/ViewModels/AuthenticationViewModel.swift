@@ -60,6 +60,23 @@ class AuthenticationViewModel : ObservableObject {
     ///   - password: The password for the new account.
     ///   - confirmPassword: The confirmation password for the new account.
     func register(username: String, email: String, password: String, confirmPassword: String) {
-
+        StaticLogger.log.debug("Calling register action")
+        RegisterAction(parameters:
+                RegisterDto(
+                        name: username,
+                        email: email,
+                        password: password
+                )
+        ).call { result in
+            switch result {
+                case .success(let authenticatedUser):
+                    // Handle the authenticated user information
+                    print(authenticatedUser)
+                    self.authManager.authenticate(with: authenticatedUser.token)
+                case .failure(let error):
+                    // Handle the error
+                    print("Error: \(error)")
+            }
+        }
     }
 }

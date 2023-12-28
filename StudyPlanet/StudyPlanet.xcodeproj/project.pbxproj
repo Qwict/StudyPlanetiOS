@@ -46,6 +46,7 @@
 		2A75BB83D2D1C0001D565654 /* StudyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BD53CFB0C02247C45CF6 /* StudyView.swift */; };
 		2A75BBA773AB5BC0D90E85A9 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B49E2C0911E12D17AE2A /* RegistrationView.swift */; };
 		2A75BCDBF2BE3F7325CFC13E /* StudyPlanetUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BFD354DE6BB1FBD84917 /* StudyPlanetUITestsLaunchTests.swift */; };
+		2A75BCEFE5AD1F841C6FF2F0 /* RegisterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B4DBC488E4B6729C8460 /* RegisterAction.swift */; };
 		2A75BD6756BCF2D07EFE9EEF /* PlanetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75B78FFF5618D8FCA14C51 /* PlanetCard.swift */; };
 		2A75BDD3F1B8BBD4A816FB93 /* StudyPlanetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BA41E0048F76D7D3B3D5 /* StudyPlanetTests.swift */; };
 		2A75BDF72215A532C7CF8F59 /* RegisterDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A75BE53460328F3142049FC /* RegisterDto.swift */; };
@@ -90,6 +91,7 @@
 		2A75B449740EC8EB5CE3CA05 /* VersionDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionDto.swift; sourceTree = "<group>"; };
 		2A75B469F5F6421599231ECD /* LoginAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAction.swift; sourceTree = "<group>"; };
 		2A75B49E2C0911E12D17AE2A /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		2A75B4DBC488E4B6729C8460 /* RegisterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterAction.swift; sourceTree = "<group>"; };
 		2A75B51F0B45B7365403377A /* ProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		2A75B53FD081CC2879168B1F /* ApiError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		2A75B5C19CA553D0A0E80F2C /* PlanetDto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetDto.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				2A75B469F5F6421599231ECD /* LoginAction.swift */,
+				2A75B4DBC488E4B6729C8460 /* RegisterAction.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				2A75BD6756BCF2D07EFE9EEF /* PlanetCard.swift in Sources */,
 				2A75B0537CE31D02BC2C382B /* MultiComponentPicker.swift in Sources */,
 				2A75B1CBB661F347AA9ED134 /* PlanetImage.swift in Sources */,
+				2A75BCEFE5AD1F841C6FF2F0 /* RegisterAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
