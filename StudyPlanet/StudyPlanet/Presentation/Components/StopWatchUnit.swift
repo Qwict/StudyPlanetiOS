@@ -24,11 +24,11 @@ struct StopWatchUnit: View{
                 HStack{
                     Text(timeUnitStr.substring(index: 0))
 //                            .font(.system(size: 48))
-                            .frame(width: 16)
+                            .frame(width: 10)
 
                     Text(timeUnitStr.substring(index: 1))
 //                            .font(.system(size: 48))
-                            .frame(width: 16)
+                            .frame(width: 10)
                 }
             }
 //            Text(timeUnitText)

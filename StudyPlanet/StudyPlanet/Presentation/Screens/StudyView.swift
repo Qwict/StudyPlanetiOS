@@ -10,31 +10,19 @@ struct StudyScreen: View {
 
     let planet: PlanetDto
     var selectedTime: Int
+    let barTick: Double
 
     @State private var timer: Timer?
     @Binding var progress: CGFloat
     @State private var progressTime: Int
     @State private var progressBar = 0.0
     @State private var isRunning = false
-    @State private var barTick = Double(1 / 3600)
-
-    @State var isAccordionExpanded: Bool = true
+    @State private var isAccordionExpanded: Bool = true
     @State private var showingExitAlert = false
 
-    private var barColor: Color
-    private var animationTime: TimeInterval = 0.3
-
-    var hours: Int {
-        progressTime / 3600
-    }
-
-    var minutes: Int {
-        (progressTime % 3600) / 60
-    }
-
-    var seconds: Int {
-        progressTime % 60
-    }
+    var hours: Int { progressTime / 3600 }
+    var minutes: Int { (progressTime % 3600) / 60 }
+    var seconds: Int { progressTime % 60 }
 
 
     init(selectedTime: Int, planet: PlanetDto) {
@@ -43,9 +31,7 @@ struct StudyScreen: View {
         self._progressTime = .init(initialValue: selectedTime)  // Initialize progressTime here
         self.selectedTime = selectedTime
         self.planet = planet
-        self.barColor = .white
-//        self.isRunning = true
-//        startTimer()
+        self.barTick = selectedTime > 0 ? 1 / Double(selectedTime) : 0
     }
 
     private func startTimer() {
@@ -75,36 +61,25 @@ struct StudyScreen: View {
                 let percentageProgression = progressBarProgression * 100
                 ProgressView(
                         value: progressBarProgression,
-                        label: {
-                            Text("Progress...")
-
-                        },
+                        label: { Text("Progress...") },
                         currentValueLabel: {
                             Text(percentageProgression < 0 ? "0%" : "\(Int(percentageProgression))%")
                                     .foregroundColor(.gray)
                         }
-
                 )
                         .padding(.horizontal)
-                        .task {
-                            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
-                                self.progressBar += barTick
-                            }
-                        }
+
                 VStack {
                     DisclosureGroup("Remaining time", isExpanded: $isAccordionExpanded) {
-                        HStack(spacing: 10) {
+                        HStack {
                             StopWatchUnit(timeUnit: hours, timeUnitText: "HR", color: .black)
                             Text(":")
-//                        .font(.system(size: 48))
-//                        .offset(y: -18)
                             StopWatchUnit(timeUnit: minutes, timeUnitText: "MIN", color: .black)
                             Text(":")
-//                        .font(.system(size: 48))
-//                        .offset(y: -18)
                             StopWatchUnit(timeUnit: seconds, timeUnitText: "SEC", color: .black)
                         }
-                    }.accentColor(.black)
+                    }
+                            .accentColor(.black)
                             .padding()
                             .frame(width: 300, height: 70, alignment: .center)
                 }
@@ -115,8 +90,8 @@ struct StudyScreen: View {
                                     .black.opacity(0.1)
                     )
                     .cornerRadius(20)
-//                    .shadow(color: Color.black, radius: 4)
                     .padding(.horizontal)
+                    .blur(radius: isRunning ? 0 : 5)
 
 
 
@@ -124,46 +99,23 @@ struct StudyScreen: View {
             HStack{
                 Button(action: {
                     if isRunning{
-                        timer?.invalidate()
+                        showingExitAlert = true
                     } else{
                         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                            progressTime -= 1
+                            self.progressTime -= 1
+                            self.progressBar += barTick
                         })
+                        isRunning.toggle()
                     }
-                    isRunning.toggle()
                 }) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 15.0)
                                 .frame(width: 120, height: 50, alignment: .center)
-                                .foregroundColor(isRunning ? .orange : .white)
+                                .foregroundColor(isRunning ? .gray.opacity(0.2) : .white)
 
-                        Text(isRunning ? "Stop" : "Start")
+                        Text(isRunning ? "Exit" : "Start")
                                 .font(.title)
                                 .foregroundColor(.black)
-                    }
-                }
-//                Button(action: {
-//                    progressTime = 3600
-//                }) {
-//                    ZStack{
-//                        RoundedRectangle(cornerRadius: 15.0)
-//                                .frame(width: 120, height: 50, alignment: .center)
-//                                .foregroundColor(.gray)
-//                        Text("Reset")
-//                                .font(.title)
-//                                .foregroundColor(.white)
-//                    }
-//                }
-                Button(action: {
-                    showingExitAlert = true
-                }) {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 10.0)
-                                .frame(width: 96, height: 45, alignment: .center)
-                                .foregroundColor(.gray)
-                        Text("Exit")
-                                .font(.title2)
-                                .foregroundColor(.white)
                     }
                 }
             }
@@ -172,10 +124,13 @@ struct StudyScreen: View {
             Alert(
                     title: Text("Exit"),
                     message: Text("Are you sure you want to stop" + (planet.name == "Galaxy" ? "" : " studying on \(planet.name)") + "?"),
-                    primaryButton: .destructive(Text("Yes"),
-                    action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }),
+                    primaryButton: .destructive(
+                            Text("Yes"),
+                            action: {
+                                timer?.invalidate()
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                    ),
                     secondaryButton: .default(Text("No"))
             )
         }

@@ -13,8 +13,6 @@ struct MainView: View {
     }
 
     var body: some View {
-//        NavigationView {
-
         VStack {
             Image("StudyPlanetLogo")
                     .resizable()
@@ -29,7 +27,6 @@ struct MainView: View {
 
             ProgressView(value: 30, total: 100)
         }
-//        }
     }
 }
 

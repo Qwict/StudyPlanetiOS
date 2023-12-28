@@ -72,16 +72,18 @@ struct ContentView: View {
                         .navigationTitle(selectedTab.rawValue)
                         .accentColor(.black)
                         .toolbar {
-                            ToolbarItem(placement: .confirmationAction) {
-                                Button(action: { showingLogoutAlert = true }) {
-                                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                                }
+                            if selectedTab == .home {
+                                ToolbarItem(placement: .confirmationAction) {
+                                    Button(action: { showingLogoutAlert = true }) {
+                                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                                    }
 
+                                }
                             }
                         }
                         .alert(isPresented: $showingLogoutAlert) {
                             Alert(
-                                    title: Text("Exit"),
+                                    title: Text("Logout"),
                                     message: Text("Are you sure you want to logout?"),
                                     primaryButton: .destructive(Text("Yes"),
                                     action: {

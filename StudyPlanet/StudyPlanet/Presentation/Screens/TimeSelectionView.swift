@@ -6,14 +6,6 @@ import SwiftUI
 
 struct TimeSelectionView: View {
     let planet: PlanetDto
-    @State private var selectedTime: Int = 0
-    @State private var availableTimes = [
-        "30 minutes": 1800,
-        "1 hour": 3600,
-        "2 hours": 7200
-    ]
-
-    //TODO: make this live thu screen changes
     @State private var selectedHour: Int = 0
     @State private var selectedMinute: Int = 30
 
@@ -36,10 +28,6 @@ struct TimeSelectionView: View {
                 MultiComponentPicker(
                         columns: columns,
                         selections: [$selectedHour, $selectedMinute]
-//                        selections: [
-//                            .constant(hours),
-//                            .constant(minutes)
-//                        ]
                 )
             }
                     .background(Color.gray.opacity(0.2))
@@ -54,11 +42,25 @@ struct TimeSelectionView: View {
                 )
                         .navigationBarBackButtonHidden()
             } label: {
-                Text("Select")
-                        .font(.title)
+                VStack {
+                    Text("Select")
+                            .font(.title)
+                    if selectedHour == 0 && selectedMinute < 15 {
+                        Text("Selected time must be at least 15 minutes.")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                    } else {
+                        Text("Estimated experience gained: \(selectedHour * 60 + selectedMinute)xp")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                    }
+                }
+                        .frame(height: 50)
                         .padding()
+                        .accentColor(.black)
+
             }
-                    .disabled(selectedHour == 0 && selectedMinute == 0)
+                    .disabled(selectedHour == 0 && selectedMinute < 15)
 
         }
     }
