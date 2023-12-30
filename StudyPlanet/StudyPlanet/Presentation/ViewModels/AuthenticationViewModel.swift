@@ -4,6 +4,7 @@
 
 import Foundation
 import os
+import SwiftyBeaver
 
 /// View model responsible for authentication-related operations.
 class AuthenticationViewModel : ObservableObject {
@@ -17,6 +18,7 @@ class AuthenticationViewModel : ObservableObject {
 
     @Inject
     private var studyPlanetRepository: StudyPlanetRepositoryProtocol
+    private let log = SwiftyBeaver.self
 
 
     @Published var username: String = ""
@@ -42,7 +44,7 @@ class AuthenticationViewModel : ObservableObject {
     ///   - email: The user's email address.
     ///   - password: The user's password.
     func login(email: String, password: String) {
-        StaticLogger.log.debug("Calling login action")
+        SPLogger.shared.debug("Calling login action")
         loading = true
         if email.isEmpty || password.isEmpty {
             loginError = "Please enter your email and password"
@@ -58,7 +60,7 @@ class AuthenticationViewModel : ObservableObject {
                 switch result {
                     case .success(let authenticatedUser):
                         // Handle the authenticated user information
-                        print(authenticatedUser)
+                        SPLogger.shared.debug("User logged in: \(authenticatedUser.user.name)")
                         self.authManager.authenticate(with: authenticatedUser.token)
                         self.loading = false
                     case .failure(let error):
@@ -76,24 +78,46 @@ class AuthenticationViewModel : ObservableObject {
     ///   - email: The email address for the new account.
     ///   - password: The password for the new account.
     ///   - confirmPassword: The confirmation password for the new account.
-    func register(username: String, email: String, password: String, confirmPassword: String) {
-        StaticLogger.log.debug("Calling register action")
-        RegisterAction(parameters:
-                RegisterDto(
-                        name: username,
-                        email: email,
-                        password: password
-                )
-        ).call { result in
-            switch result {
+    func register(username: String, email: String, password: String, confirmPassword: String) -> Bool {
+        SPLogger.shared.debug("Calling register action")
+        loading = true
+        clearErrors()
+        if username.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty {
+            registerError = "Please fill in all fields"
+            loading = false
+        } else if password != confirmPassword {
+            registerError = "Passwords do not match"
+            loading = false
+        } else {
+            RegisterAction(parameters:
+            RegisterDto(
+                    name: username,
+                    email: email,
+                    password: password
+            )
+            ).call { result in
+                switch result {
                 case .success(let authenticatedUser):
                     // Handle the authenticated user information
-                    print(authenticatedUser)
+                    SPLogger.shared.debug("\(authenticatedUser)")
                     self.authManager.authenticate(with: authenticatedUser.token)
+                    self.loading = false
                 case .failure(let error):
                     // Handle the error
-                    print("Error: \(error)")
+                    SPLogger.shared.debug("Error: \(error)")
+                    self.loading = false
+
+                }
             }
+            return true
         }
+
+        return false
+    }
+
+    /// Clears any existing errors.
+    private func clearErrors() {
+        loginError = ""
+        registerError = ""
     }
 }

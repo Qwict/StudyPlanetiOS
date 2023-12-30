@@ -8,6 +8,7 @@ import SwiftUI
 struct StudyScreen: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+
 //    let planet: PlanetDto
     let planet: Planet
     var selectedTime: Int
@@ -19,7 +20,7 @@ struct StudyScreen: View {
     @State private var progressBar = 0.0
     @State private var isRunning = false
     @State private var isAccordionExpanded: Bool = true
-    @State private var showingExitAlert = true
+    @State private var showingExitAlert = false
 
     var hours: Int { progressTime / 3600 }
     var minutes: Int { (progressTime % 3600) / 60 }
@@ -31,7 +32,7 @@ struct StudyScreen: View {
         _viewModel = StateObject(
                 wrappedValue: StudyViewModel()
         )
-        print("StudyScreen init")
+        SPLogger.shared.debug("StudyScreen init")
         self._progress = .constant(CGFloat(selectedTime))
         self._progressTime = .init(initialValue: selectedTime)  // Initialize progressTime here
         self.selectedTime = selectedTime
@@ -40,19 +41,17 @@ struct StudyScreen: View {
     }
 
     private func startTimer() {
-        print("startTimer")
+        SPLogger.shared.debug("Started Timer")
         if isRunning{
-            print("isRunning")
             timer?.invalidate()
         } else{
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                print("timer: \(progressTime)")
                 if progressTime <= 0 {
                     timer?.invalidate()
                     if planet.name == "Galaxy" {
-                        viewModel.stopDiscovering(selectedTime: selectedTime)
+                        viewModel.stopDiscovering(selectedTimeInSeconds: selectedTime)
                     } else {
-                        viewModel.stopExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
+                        viewModel.stopExploring(remoteId: planet.remoteId, selectedTimeInSeconds: selectedTime)
                     }
                 } else {
                     self.progressTime -= 1
@@ -65,6 +64,47 @@ struct StudyScreen: View {
 
 
     var body: some View {
+        ZStack {
+            bodyContent
+                    .blur(radius: viewModel.isActionFinished ? 10 : 0)
+            VStack {
+                Text("Finished")
+                        .font(.title)
+                        .padding(.top)
+                PlanetImage(planet: planet.name == "Galaxy" ? viewModel.discoveredPlanet : planet)
+                if (planet.name == "Galaxy") {
+                    Text(planet.name == "Galaxy" && viewModel.discoveredPlanet.name != "Galaxy" ?
+                            "\(viewModel.discoveredPlanet.name) Discovered!" : "No Planet was found"
+                    )
+                } else {
+                    Text("You explored \(planet.name)")
+                }
+                Text("Gained \(Int(selectedTime / 60)) xp")
+                Button(action: {
+                    timer?.invalidate()
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 15.0)
+                                .frame(width: 120, height: 50, alignment: .center)
+                                .foregroundColor(.white)
+
+                        Text("Exit")
+                                .font(.title)
+                                .foregroundColor(.black)
+                    }
+                }
+                        .padding(.bottom)
+            }
+                    .background(.gray.opacity(0.5))
+                    .cornerRadius(20)
+                    .padding()
+                    .opacity(viewModel.isActionFinished ? 1 : 0)
+        }
+
+    }
+
+    var bodyContent: some View {
         VStack {
             Text(planet.name)
                     .font(.title)
@@ -101,7 +141,7 @@ struct StudyScreen: View {
                     .background(
 //                            UIImage(named: planet.name + "Small")?.averageColor?.asColor.opacity(0.5)
 //                                    ??
-                                    .black.opacity(0.1)
+                            .black.opacity(0.1)
                     )
                     .cornerRadius(20)
                     .padding(.horizontal)
@@ -110,75 +150,78 @@ struct StudyScreen: View {
 
 
 
-            HStack{
-                Button(action: {
-                    print("Button action")
-                    if isRunning{
-                        print("isRunning")
+            HStack {
+                    Button(action: {
                         self.showingExitAlert = true
-                    } else{
-                        startTimer()
-                    }
-                }) {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15.0)
-                                .frame(width: 120, height: 50, alignment: .center)
-                                .foregroundColor(isRunning ? .gray.opacity(0.2) : .white)
+                    }) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 15.0)
+                                    .frame(width: 120, height: 50, alignment: .center)
+                                    .foregroundColor(.white)
 
-                        Text(isRunning ? "Exit" : "Start")
-                                .font(.title)
-                                .foregroundColor(.black)
+                            Text("Exit")
+                                    .font(.title)
+                                    .foregroundColor(.black)
+                        }
+                    }
+                            .alert(isPresented: $showingExitAlert) {
+                                Alert(
+                                        title: Text("Exit"),
+                                        message: Text("Are you sure you want to stop" + (planet.name == "Galaxy" ? "" : " studying on \(planet.name)") + "?"),
+                                        primaryButton: .destructive(
+                                                Text("Yes"),
+                                                action: {
+                                                    timer?.invalidate()
+                                                    presentationMode.wrappedValue.dismiss()
+                                                }
+                                        ),
+                                        secondaryButton: .default(Text("No"))
+                                )
+                            }
+//                    Button(action: {
+//                        SPLogger.shared.debug("Button action")
+//                        startTimer()
+//                    }) {
+//                        ZStack{
+//                            RoundedRectangle(cornerRadius: 15.0)
+//                                    .frame(width: 120, height: 50, alignment: .center)
+//                                    .foregroundColor(.white)
+//
+//                            Text("Start")
+//                                    .font(.title)
+//                                    .foregroundColor(.black)
+//                        }
+//                    }
+                }
+//                Button(action: {
+//                    SPLogger.shared.debug("Button action")
+//                    if isRunning{
+//                        SPLogger.shared.debug("isRunning")
+//                        self.showingExitAlert = true
+//                    } else{
+//                        startTimer()
+//                    }
+//                }) {
+//                    ZStack{
+//                        RoundedRectangle(cornerRadius: 15.0)
+//                                .frame(width: 120, height: 50, alignment: .center)
+//                                .foregroundColor(isRunning ? .gray.opacity(0.2) : .white)
+//
+//                        Text(isRunning ? "Exit" : "Start")
+//                                .font(.title)
+//                                .foregroundColor(.black)
+//                    }
+//                }
+            }
+                .onAppear() {
+                    SPLogger.shared.debug("onAppear")
+                    startTimer()
+                    if (planet.name == "Galaxy") {
+                        viewModel.startDiscovering(selectedTimeInSeconds: selectedTime)
+                    } else {
+                        viewModel.startExploring(remoteId: planet.remoteId, selectedTimeInSeconds: selectedTime)
                     }
                 }
-            }
-        }
-        .onAppear() {
-            print("onAppear")
-            startTimer()
-            if (planet.name == "Galaxy") {
-                viewModel.startDiscovering(selectedTime: selectedTime)
-            } else {
-                viewModel.startExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
-            }
-        }
-        .alert(isPresented: $showingExitAlert) {
-            Alert(
-                    title: Text("Exit"),
-                    message: Text("Are you sure you want to stop" + (planet.name == "Galaxy" ? "" : " studying on \(planet.name)") + "?"),
-                    primaryButton: .destructive(
-                            Text("Yes"),
-                            action: {
-                                timer?.invalidate()
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                    ),
-                    secondaryButton: .default(Text("No"))
-            )
-        }
-        .alert(isPresented: $viewModel.isActionFinished) {
-            Alert(
-                title: Text("Finished"),
-                message:
-                    Text((planet.name == "Galaxy" && viewModel.discoveredPlanet.name != "Galaxy" ?
-                            "\(viewModel.discoveredPlanet.name) Discovered!" : "") +
-                            "You have gained \(Int(selectedTime / 60)) xp!"
-                    ),
-                primaryButton: .destructive(
-                        Text("Yes"),
-                        action: {
-                            timer?.invalidate()
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                ),
-                secondaryButton: .default(
-                        Text("No"),
-                        action: {
-                            showingExitAlert = false
-                        }
-
-                )
-            )
-        }
     }
 }
 

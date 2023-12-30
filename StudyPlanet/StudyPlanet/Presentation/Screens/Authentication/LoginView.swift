@@ -31,12 +31,10 @@ struct LoginView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 196, height: 196)
-                        .padding(.top, 32)
 
                 Text(viewModel.loginError)
                         .foregroundColor(.red)
-                        .padding(12)
-                        .frame(width: UIScreen.main.bounds.width - 32, alignment: .center)
+                        .frame(height: 16)
 
                 VStack(spacing: 24) {
                     InputView(
@@ -45,6 +43,7 @@ struct LoginView: View {
                             placeholder: "name@example.com"
                     )
                             .autocapitalization(.none)
+                            .autocorrectionDisabled()
                             .keyboardType(.emailAddress)
 
                     InputView(
@@ -54,9 +53,9 @@ struct LoginView: View {
                             isSecureField: true
                     )
                             .autocapitalization(.none)
+                            .autocorrectionDisabled()
                             .keyboardType(.default)
                             .textContentType(.password)
-                            .disableAutocorrection(true)
                 }
                         .padding(.horizontal)
                         .padding(.top, 12)

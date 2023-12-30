@@ -10,7 +10,7 @@
 //
 //    @StateObject private var viewModel: StudyViewModel
 //    init(selectedTime: Int, planet: Planet) {
-//        print("StudyScreen init")
+//        SPLogger.shared.debug("StudyScreen init")
 //        _viewModel = StateObject(
 //                wrappedValue: StudyViewModel(selectedTime: selectedTime, planet: planet)
 //        )
@@ -38,13 +38,13 @@
 //    var seconds: Int { viewModel.progressTime % 60 }
 //
 //    private func startTimer() {
-//        print("startTimer")
+//        SPLogger.shared.debug("startTimer")
 //
 //        if (planet.name == "Galaxy") {
-//            print("Started discovering")
+//            SPLogger.shared.debug("Started discovering")
 //            viewModel.startDiscovering(selectedTime: selectedTime)
 //        } else {
-//            print("Started exploring")
+//            SPLogger.shared.debug("Started exploring")
 //            viewModel.startExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
 //        }
 //
@@ -52,7 +52,7 @@
 //            timer?.invalidate()
 //        } else{
 //            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-//                print("timer: \(progressTime)")
+//                SPLogger.shared.debug("timer: \(progressTime)")
 //                if progressTime <= 0 {
 //                    timer?.invalidate()
 //                    if planet.name == "Galaxy" {
@@ -139,7 +139,7 @@
 //            }
 //        }
 ////                .onAppear() {
-////                    print("onAppear")
+////                    SPLogger.shared.debug("onAppear")
 ////                    viewModel.startDiscovering(selectedTime: viewModel.selectedTime)
 ////                    if (viewModel.completedStartRequest) {
 ////                        if (viewModel.planet.name == "Galaxy") {

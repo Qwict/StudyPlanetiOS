@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import SwiftyBeaver
 
 /// A protocol defining the methods for interacting with the StudyPlanet API.
 public protocol StudyPlanetApiProtocol {
@@ -32,6 +33,8 @@ public protocol StudyPlanetApiProtocol {
 
 /// A class implementing the `StudyPlanetApiProtocol` for interacting with the StudyPlanet API.
 final class StudyPlanetApi: StudyPlanetApiProtocol {
+
+    private let log = SwiftyBeaver.self
 
     /// Authenticates the user with a given token and retrieves a list of planets.
     ///
@@ -164,7 +167,7 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
                 } catch {
                     // Have to allow empty response for some requests, will have clean this up later
                     if T.Type.self == EmptyResponse.Type.self {
-                        print("Returning empty response")
+                        SPLogger.shared.debug("Returning empty response")
                         completion(.success(EmptyResponse() as! T))
                     }
                     else {
@@ -172,7 +175,7 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
                     }
                 }
             } else if let error = error {
-                print("Failed in check response for error: \(error)")
+                SPLogger.shared.debug("Failed in check response for error: \(error)")
                 completion(.failure(error))
             }
         }

@@ -5,6 +5,7 @@
 
 import Foundation
 import CoreData
+import SwiftyBeaver
 
 public protocol StudyPlanetRepositoryProtocol {
     func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void)
@@ -24,7 +25,8 @@ public protocol StudyPlanetRepositoryProtocol {
 public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
     @Inject private var apiService: StudyPlanetApiProtocol
     @Inject private var databaseService: StudyPlanetDatabase
-//    @Inject private var dao: PlanetDaoProtocol
+
+    private let log = SwiftyBeaver.self
 
     public func authenticate(token: String, completion: @escaping (Result<[AuthenticatedUserDto], Error>) -> Void) {
         apiService.authenticate(token: token, completion: completion)
@@ -50,15 +52,13 @@ public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
     }
 
     private func saveAuthenticatedUserToDatabase(authenticatedUser: AuthenticatedUserDto) {
-        print("Saving authenticated user to database: \(authenticatedUser)")
-
-
+        SPLogger.shared.debug("Saving authenticated user to database: \(1 + 1)")
         databaseService.saveAuthenticatedUser(authenticatedUser: authenticatedUser) { result in
             switch result {
                 case .success(let user):
-                    print("User saved to database: \(user)")
+                    SPLogger.shared.debug("User saved to database: \(user.name)")
                 case .failure(let error):
-                    print("Error saving user to database: \(error)")
+                    SPLogger.shared.debug("Error saving user to database: \(error)")
             }
         }
             
@@ -90,7 +90,15 @@ public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
     }
 
     public func stopExploring(exploreDto: ExploreDto, completion: @escaping (Result<ExploreResponseDto, Error>) -> Void) {
-        apiService.stopExploring(parameters: exploreDto, completion: completion)
+        apiService.stopExploring(parameters: exploreDto) { result in
+            switch result {
+                case .success(let exploreResponse):
+                    self.addExperienceToUser(selectedTime: exploreDto.selectedTime)
+                    completion(.success(exploreResponse))
+                case .failure(let error):
+                    completion(.failure(error))
+            }
+        }
     }
 
     public func startDiscovering(discoverDto: DiscoverDto, completion: @escaping (Result<EmptyResponse, Error>) -> Void) {
@@ -102,9 +110,10 @@ public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
             switch result {
                 case .success(let discoverResponse):
                     // Save the discovered planet to the database
-                    if (discoverResponse.discovered != 0) {
-                        self.saveDiscoveredPlanetToDatabase(remoteId: discoverResponse.id ?? 0, name: discoverResponse.name ?? "Galaxy")
+                    if (discoverResponse.hasFoundNewPlanet) {
+                        self.saveDiscoveredPlanetToDatabase(remoteId: discoverResponse.planet.id, name: discoverResponse.planet.name)
                     }
+                    self.addExperienceToUser(selectedTime: discoverDto.selectedTime)
                     completion(.success(discoverResponse))
                 case .failure(let error):
                     completion(.failure(error))
@@ -112,13 +121,17 @@ public final class StudyPlanetRepository: StudyPlanetRepositoryProtocol {
         }
     }
 
+    private func addExperienceToUser(selectedTime: Int) {
+        databaseService.addExperience(experience: selectedTime / 1000 / 60)
+    }
+
     public func saveDiscoveredPlanetToDatabase(remoteId: Int, name: String) {
         databaseService.saveDiscoveredPlanet(remoteId: remoteId, name: name) { result in
             switch result {
                 case .success(let planet):
-                    print("Planet saved to database: \(planet)")
+                    SPLogger.shared.debug("Planet saved to database: \(planet)")
                 case .failure(let error):
-                    print("Error saving planet to database: \(error)")
+                    SPLogger.shared.debug("Error saving planet to database: \(error)")
             }
         }
     }

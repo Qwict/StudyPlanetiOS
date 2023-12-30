@@ -12,6 +12,8 @@ struct MainView: View {
         )
     }
 
+    @FetchRequest(fetchRequest: UserEntity.active()) private var user
+
     var body: some View {
         VStack {
             Image("StudyPlanetLogo")
@@ -19,19 +21,32 @@ struct MainView: View {
                     .scaledToFill()
                     .frame(width: 196, height: 196)
                     .padding(.vertical, 32)
-
-            Text("Welcome back, \(viewModel.user.name)")
+            if user.isEmpty {
+                ProgressView()
+            } else {
+                Text("Welcome back, \(user.first?.name ?? "User")!")
                     .font(.title)
                     .fontWeight(.bold)
 
-            Text("Level \(viewModel.currentLevel)")
-                    .font(.title2)
-                    .fontWeight(.bold)
+                Text("Level \(viewModel.currentLevel)")
+                        .font(.title2)
+                        .fontWeight(.bold)
 
-            ProgressView(value: viewModel.experienceProgress, total: 1)
-                    .padding()
+                ProgressView(
+                        value: viewModel.experienceProgress,
+                        total: 1,
+                        label: { Text("Experience") },
+                        currentValueLabel: {
+                            Text(String(user.first?.experience ?? 0) + " xp")
+                                    .foregroundColor(.gray)
+                        }
+                )
+                        .padding()
+            }
+
+
         }
-                .onAppear() {
+                .onAppear {
                     viewModel.getLocalUser()
                 }
     }

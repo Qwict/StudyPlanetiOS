@@ -18,7 +18,7 @@ struct LoginAction {
     ///
     /// - Parameter completion: A closure to be called with the result containing authenticated user information or an error.
     func call(completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
-        StaticLogger.log.debug("Calling login action")
+        SPLogger.shared.debug("Calling login action")
         studyPlanetRepository.login(parameters: parameters, completion: completion)
     }
 }

@@ -33,3 +33,14 @@ extension UserEntity {
 
     @NSManaged public var planets: NSSet
 }
+
+extension UserEntity {
+    static func active() -> NSFetchRequest<UserEntity> {
+        let email = AuthenticationManager.shared.getEmail()
+
+        let fetchRequest: NSFetchRequest<UserEntity> = UserEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "email == %@", email)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "email", ascending: true)]
+        return fetchRequest
+    }
+}

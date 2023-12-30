@@ -4,10 +4,13 @@
 
 import Foundation
 import CoreData
+import SwiftyBeaver
 
 class DiscoveredPlanetsViewModel: ObservableObject {
     @Inject
     private var studyPlanetRepository: StudyPlanetRepositoryProtocol
+
+    private let log = SwiftyBeaver.self
 
     @Published var loading: Bool = false
     @Published var planets: [PlanetEntity] = []
@@ -18,13 +21,13 @@ class DiscoveredPlanetsViewModel: ObservableObject {
     }
 
     func getLocalDiscoveredPlanets() {
-        print("Getting local discovered planets")
+        SPLogger.shared.debug("Getting local discovered planets")
         studyPlanetRepository.getLocalDiscoveredPlanets { result in
             switch result {
             case .success(let planets):
                 self.planets = planets
             case .failure(let error):
-                print(error)
+                SPLogger.shared.debug("\(error)")
             }
         }
     }

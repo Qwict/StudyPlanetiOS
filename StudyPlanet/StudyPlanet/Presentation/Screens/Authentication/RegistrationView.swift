@@ -32,7 +32,9 @@ struct RegistrationView : View {
                         .resizable()
                         .scaledToFill()
                         .frame(width: 196, height: 196)
-                        .padding(.vertical, 32)
+                Text(viewModel.registerError)
+                        .foregroundColor(.red)
+                        .frame(height: 16)
 
                 VStack(spacing: 24) {
                     InputView(
@@ -40,30 +42,40 @@ struct RegistrationView : View {
                             title: "Username",
                             placeholder: "username"
                     )
+                            .autocapitalization(.none)
+                            .autocorrectionDisabled()
                     InputView(
                             text: $email,
                             title: "Email",
-                            placeholder: "name@example.com")
+                            placeholder: "name@example.com"
+                    )
                             .autocapitalization(.none)
+                            .autocorrectionDisabled()
                     InputView(
                             text: $password,
                             title: "Password",
                             placeholder: "Enter your password",
-                            isSecureField: true)
+                            isSecureField: true
+                    )
                             .autocapitalization(.none)
+                            .autocorrectionDisabled()
                     InputView(
-                            text: $password,
+                            text: $confirmPassword,
                             title: "Confirm Password",
                             placeholder: "Confirm your password",
-                            isSecureField: true)
+                            isSecureField: true
+                    )
                             .autocapitalization(.none)
+                            .autocorrectionDisabled()
                 }
                         .padding(.horizontal)
                         .padding(.top, 12)
 
                 Button {
-                    viewModel.register(username: username, email: email, password: password, confirmPassword: confirmPassword)
-                    presentationMode.wrappedValue.dismiss()
+                    if (viewModel.register(username: username, email: email, password: password, confirmPassword: confirmPassword))
+                    {
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 } label: {
                     HStack {
                         Text("Register")

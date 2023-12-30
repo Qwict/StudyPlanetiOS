@@ -3,75 +3,82 @@
 //
 
 import Foundation
+import SwiftyBeaver
+
 class StudyViewModel: ObservableObject {
     @Inject
     private var studyPlanetRepository: StudyPlanetRepositoryProtocol
+
+    private let log = SwiftyBeaver.self
+
     @Published var discoveredPlanet: Planet = Planet(remoteId: 0, name: "Galaxy")
     @Published var isActionFinished: Bool = false
 
-    func startExploring(remoteId: Int, selectedTime: Int) {
+    func startExploring(remoteId: Int, selectedTimeInSeconds: Int) {
         studyPlanetRepository.startExploring(
                 exploreDto: ExploreDto(
                         planetId: remoteId,
-                        selectedTime: selectedTime
+                        selectedTime: selectedTimeInSeconds * 1000
                 )
         ) { result in
             switch result {
             case .success(let emptyResponse):
-                print("Started exploring")
+                SPLogger.shared.debug("Started exploring")
             case .failure(let error):
-                print(error)
+                SPLogger.shared.debug("\(error)")
             }
         }
     }
 
-    func stopExploring(remoteId: Int, selectedTime: Int) {
+    func stopExploring(remoteId: Int, selectedTimeInSeconds: Int) {
         studyPlanetRepository.stopExploring(
                 exploreDto: ExploreDto(
                         planetId: remoteId,
-                        selectedTime: selectedTime
+                        selectedTime: selectedTimeInSeconds * 1000
                 )
         ) { result in
             switch result {
             case .success(let exploreResponse):
-                print(exploreResponse)
+                self.isActionFinished = true
+                SPLogger.shared.debug("\(exploreResponse)")
             case .failure(let error):
-                print(error)
+                SPLogger.shared.debug("\(error)")
             }
         }
     }
 
-    func startDiscovering(selectedTime: Int) {
+    func startDiscovering(selectedTimeInSeconds: Int) {
         studyPlanetRepository.startDiscovering(
-                discoverDto: DiscoverDto(selectedTime: selectedTime)
+                discoverDto: DiscoverDto(selectedTime: selectedTimeInSeconds * 1000)
         ) { result in
             switch result {
             case .success(let emptyResponse):
-                print("Started discovering")
+                SPLogger.shared.debug("Started discovering")
 
             case .failure(let error):
-                print(error)
+                SPLogger.shared.debug("\(error)")
             }
         }
     }
 
-    func stopDiscovering(selectedTime: Int) {
+    func stopDiscovering(selectedTimeInSeconds: Int) {
         studyPlanetRepository.stopDiscovering(
-                discoverDto: DiscoverDto(selectedTime: selectedTime)
+                discoverDto: DiscoverDto(selectedTime: selectedTimeInSeconds * 1000)
         ) { result in
             switch result {
             case .success(let discoverResponse):
-                print(discoverResponse.discovered != 0 ? "Discovered" : "Not discovered")
-                if discoverResponse.discovered != 0  {
+                SPLogger.shared.debug("\(discoverResponse.hasFoundNewPlanet ? "Discovered" : "Not discovered")")
+                if (discoverResponse.hasFoundNewPlanet) {
                     self.discoveredPlanet = Planet(
-//                                TODO: Fix this
-                            remoteId: discoverResponse.id ?? 0,
-                            name: discoverResponse.name ?? "Galaxy"
+                        remoteId: discoverResponse.planet.id,
+                        name: discoverResponse.planet.name
                     )
+                    self.isActionFinished = true
+                } else {
                     self.isActionFinished = true
                 }
             case .failure(let error):
-                print(error)
+                SPLogger.shared.debug("\(error)")
             }
         }
     }

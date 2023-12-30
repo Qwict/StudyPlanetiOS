@@ -7,9 +7,11 @@ import Foundation
 
 import Foundation
 import Security
+import SwiftyBeaver
 
 /// A service for managing secure storage of authentication tokens in the Keychain.
 class KeychainService {
+    let log = SwiftyBeaver.self
 
     /// The shared instance of the `KeychainService`.
     static let shared = KeychainService()
@@ -21,7 +23,7 @@ class KeychainService {
     ///
     /// - Parameter token: The authentication token to be saved.
     func saveToken(_ token: String) {
-        print("Saving token to Keychain: \(token)")
+        SPLogger.shared.debug("Saving token to Keychain")
         guard let data = token.data(using: .utf8) else { return }
 
         // Create a query for the Keychain
@@ -38,7 +40,7 @@ class KeychainService {
         // Add the new token to the Keychain
         let status = SecItemAdd(query as CFDictionary, nil)
         if status != errSecSuccess {
-            print("Failed to save token to Keychain")
+            SPLogger.shared.debug("Failed to save token to Keychain")
         }
     }
 
@@ -65,7 +67,7 @@ class KeychainService {
             let token = String(data: data, encoding: .utf8) {
                 return token
             } else {
-                print("Failed to load token from Keychain")
+                SPLogger.shared.debug("Failed to load token from Keychain")
                 return nil
             }
     }
@@ -82,7 +84,7 @@ class KeychainService {
         // Delete the token from the Keychain
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess {
-            print("Failed to delete token from Keychain")
+            SPLogger.shared.debug("Failed to delete token from Keychain")
         }
     }
 }

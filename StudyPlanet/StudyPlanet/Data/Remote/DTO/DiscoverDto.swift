@@ -9,7 +9,6 @@ public struct DiscoverDto: Encodable {
 }
 
 public struct DiscoverResponseDto: Decodable {
-    let id: Int?
-    let name: String?
-    let discovered: Int
+    let hasFoundNewPlanet: Bool
+    let planet: PlanetDto
 }

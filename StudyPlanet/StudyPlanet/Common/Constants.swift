@@ -9,6 +9,9 @@ public class Constants {
     /// The base URL for the StudyPlanet API.
     ///
     /// This URL is used as the foundation for constructing API endpoints.
-    public static let BASE_URL = "http://localhost:9012/api/v1"
-//            "https://sp.qwict.com/api/v1"
+    public static let BASE_URL =
+            "https://sp.qwict.com/api/v1"
+//            "http://localhost:9012/api/v1"
+
+    public static let LOG_LEVEL = "debug"
 }

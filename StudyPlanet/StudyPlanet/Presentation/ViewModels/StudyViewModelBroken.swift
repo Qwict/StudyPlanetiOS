@@ -25,7 +25,7 @@
 ////    @State private var isRunning = false
 //
 //    init(selectedTime: Int, planet: Planet) {
-//        print("StudyViewModel init")
+//        SPLogger.shared.debug("StudyViewModel init")
 //        self._progressTime = .init(initialValue: selectedTime)  // Initialize progressTime here
 //        self.selectedTime = selectedTime
 //        self.planet = planet
@@ -42,9 +42,9 @@
 //        ) { result in
 //            switch result {
 //                case .success(let emptyResponse):
-//                    print("Started exploring")
+//                    SPLogger.shared.debug("Started exploring")
 //                case .failure(let error):
-//                    print(error)
+//                    SPLogger.shared.debug("\(error)
 //                }
 //        }
 //    }
@@ -58,9 +58,9 @@
 //        ) { result in
 //            switch result {
 //                case .success(let exploreResponse):
-//                    print(exploreResponse)
+//                    SPLogger.shared.debug("\(exploreResponse)
 //                case .failure(let error):
-//                    print(error)
+//                    SPLogger.shared.debug("\(error)
 //                }
 //        }
 //    }
@@ -73,10 +73,10 @@
 //                case .success(let emptyResponse):
 //                    self.completedStartRequest = true
 //                    self.startTimer()
-//                    print("Started discovering")
+//                    SPLogger.shared.debug("Started discovering")
 //
 //                case .failure(let error):
-//                    print(error)
+//                    SPLogger.shared.debug("\(error)
 //                }
 //        }
 //    }
@@ -87,7 +87,7 @@
 //        ) { result in
 //            switch result {
 //                case .success(let discoverResponse):
-//                    print(discoverResponse.discovered ? "Discovered" : "Not discovered")
+//                    SPLogger.shared.debug("\(discoverResponse.discovered ? "Discovered" : "Not discovered")
 //                    if discoverResponse.discovered {
 //                        self.discoveredPlanet = Planet(
 ////                                TODO: Fix this
@@ -96,7 +96,7 @@
 //                        )
 //                    }
 //                case .failure(let error):
-//                    print(error)
+//                    SPLogger.shared.debug("\(error)
 //                }
 //        }
 //    }
@@ -104,10 +104,10 @@
 //    private func sendRequest() {
 //
 //        if (self.planet.name == "Galaxy") {
-//            print("Started discovering")
+//            SPLogger.shared.debug("Started discovering")
 //            startDiscovering(selectedTime: selectedTime)
 //        } else {
-//            print("Started exploring")
+//            SPLogger.shared.debug("Started exploring")
 //            startExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
 //        }
 //
@@ -115,13 +115,13 @@
 //    }
 //
 //    private func startTimer() {
-//        print("initializing timer")
+//        SPLogger.shared.debug("initializing timer")
 ////        if (!completedStartRequest) {
 ////            timer?.invalidate()
 ////        } else{
-//            print("startTimer")
+//            SPLogger.shared.debug("startTimer")
 //            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-//                print("timer: \(self.progressTime)")
+//                SPLogger.shared.debug("timer: \(self.progressTime)")
 //                if self.progressTime <= 0 {
 //                    self.timer?.invalidate()
 //                    if self.planet.name == "Galaxy" {
