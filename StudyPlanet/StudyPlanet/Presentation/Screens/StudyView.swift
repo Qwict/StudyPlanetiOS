@@ -8,7 +8,8 @@ import SwiftUI
 struct StudyScreen: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    let planet: PlanetDto
+//    let planet: PlanetDto
+    let planet: Planet
     var selectedTime: Int
     let barTick: Double
 
@@ -18,14 +19,18 @@ struct StudyScreen: View {
     @State private var progressBar = 0.0
     @State private var isRunning = false
     @State private var isAccordionExpanded: Bool = true
-    @State private var showingExitAlert = false
+    @State private var showingExitAlert = true
 
     var hours: Int { progressTime / 3600 }
     var minutes: Int { (progressTime % 3600) / 60 }
     var seconds: Int { progressTime % 60 }
 
 
-    init(selectedTime: Int, planet: PlanetDto) {
+    @StateObject private var viewModel: StudyViewModel
+    init(selectedTime: Int, planet: Planet) {
+        _viewModel = StateObject(
+                wrappedValue: StudyViewModel()
+        )
         print("StudyScreen init")
         self._progress = .constant(CGFloat(selectedTime))
         self._progressTime = .init(initialValue: selectedTime)  // Initialize progressTime here
@@ -42,7 +47,16 @@ struct StudyScreen: View {
         } else{
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 print("timer: \(progressTime)")
-                self.progressTime -= 1
+                if progressTime <= 0 {
+                    timer?.invalidate()
+                    if planet.name == "Galaxy" {
+                        viewModel.stopDiscovering(selectedTime: selectedTime)
+                    } else {
+                        viewModel.stopExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
+                    }
+                } else {
+                    self.progressTime -= 1
+                }
             }
         }
         isRunning.toggle()
@@ -98,14 +112,12 @@ struct StudyScreen: View {
 
             HStack{
                 Button(action: {
+                    print("Button action")
                     if isRunning{
-                        showingExitAlert = true
+                        print("isRunning")
+                        self.showingExitAlert = true
                     } else{
-                        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-                            self.progressTime -= 1
-                            self.progressBar += barTick
-                        })
-                        isRunning.toggle()
+                        startTimer()
                     }
                 }) {
                     ZStack{
@@ -120,6 +132,15 @@ struct StudyScreen: View {
                 }
             }
         }
+        .onAppear() {
+            print("onAppear")
+            startTimer()
+            if (planet.name == "Galaxy") {
+                viewModel.startDiscovering(selectedTime: selectedTime)
+            } else {
+                viewModel.startExploring(remoteId: planet.remoteId, selectedTime: selectedTime)
+            }
+        }
         .alert(isPresented: $showingExitAlert) {
             Alert(
                     title: Text("Exit"),
@@ -132,6 +153,30 @@ struct StudyScreen: View {
                             }
                     ),
                     secondaryButton: .default(Text("No"))
+            )
+        }
+        .alert(isPresented: $viewModel.isActionFinished) {
+            Alert(
+                title: Text("Finished"),
+                message:
+                    Text((planet.name == "Galaxy" && viewModel.discoveredPlanet.name != "Galaxy" ?
+                            "\(viewModel.discoveredPlanet.name) Discovered!" : "") +
+                            "You have gained \(Int(selectedTime / 60)) xp!"
+                    ),
+                primaryButton: .destructive(
+                        Text("Yes"),
+                        action: {
+                            timer?.invalidate()
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                ),
+                secondaryButton: .default(
+                        Text("No"),
+                        action: {
+                            showingExitAlert = false
+                        }
+
+                )
             )
         }
     }
