@@ -6,11 +6,11 @@ import SwiftUI
 
 // Authentication Manager
 class AuthenticationManager: ObservableObject {
-    static let shared = AuthenticationManager()
+    public static let shared = AuthenticationManager()
 
     @Published var isAuthenticated: Bool = false
 
-    init() {
+    private init() {
         print("Creating AuthenticationManager")
         // Check if a valid token exists on app launch
         if let token = KeychainService.shared.loadToken(), isValidToken(token) {

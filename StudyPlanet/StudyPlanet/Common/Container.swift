@@ -24,5 +24,9 @@ func buildContainer() -> Container {
         StudyPlanetRepository()
     }.inObjectScope(.container)
 
+    container.register(StudyPlanetDatabase.self) { _  in
+        StudyPlanetDatabase.shared
+    }.inObjectScope(.container)
+
     return container
 }

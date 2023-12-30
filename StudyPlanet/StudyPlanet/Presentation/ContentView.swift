@@ -48,12 +48,18 @@ struct ContentView: View {
         case discover = "Discover a new Planet"
     }
 
+//    private func thisStupidGalaxy() -> PlanetEntity {
+//        let emptyPlanet = PlanetEntity(context: StudyPlanetDatabase.shared.viewContext)
+//        emptyPlanet.name = "Galaxy"
+//        return emptyPlanet
+//    }
+
     /// The body of the content view.
     var body: some View {
         NavigationStack {
             if authManager.isAuthenticated {
                 TabView(selection: $selectedTab) {
-                    MainView(authManager: authManager)
+                    MainView()
                             .tabItem {
                                 Label("Home", systemImage: "person")
                             }
@@ -63,9 +69,9 @@ struct ContentView: View {
                                 Label("Explore", systemImage: "globe")
                             }
                             .tag(Tabs.explore)
-                    TimeSelectionView(planet: PlanetDto(name: "Galaxy", id: 0))
+                    TimeSelectionView(planet: Planet(remoteId: 0, name: "Galaxy"))
                             .tabItem {
-                                Label("Discover", systemImage: "mug")
+                                Label("Discover", systemImage: "sparkle.magnifyingglass")
                             }
                             .tag(Tabs.discover)
                 }
@@ -75,9 +81,9 @@ struct ContentView: View {
                             if selectedTab == .home {
                                 ToolbarItem(placement: .confirmationAction) {
                                     Button(action: { showingLogoutAlert = true }) {
-                                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                                        Image(systemName: "door.left.hand.open")
                                     }
-
+                                        .accentColor(.black)
                                 }
                             }
                         }
@@ -100,3 +106,4 @@ struct ContentView: View {
 
     }
 }
+

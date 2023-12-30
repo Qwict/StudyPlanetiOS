@@ -18,32 +18,51 @@ struct LoginView: View {
 
 
     var body: some View {
-            VStack{
+        if viewModel.loading {
+            Image("StudyPlanetLogo")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 196, height: 196)
+                    .padding(.top, 32)
+            ProgressView()
+        } else {
+            VStack {
                 Image("StudyPlanetLogo")
                         .resizable()
                         .scaledToFill()
                         .frame(width: 196, height: 196)
-                        .padding(.vertical, 32)
+                        .padding(.top, 32)
+
+                Text(viewModel.loginError)
+                        .foregroundColor(.red)
+                        .padding(12)
+                        .frame(width: UIScreen.main.bounds.width - 32, alignment: .center)
 
                 VStack(spacing: 24) {
                     InputView(
                             text: $email,
                             title: "Email",
-                            placeholder: "name@example.com")
+                            placeholder: "name@example.com"
+                    )
                             .autocapitalization(.none)
+                            .keyboardType(.emailAddress)
 
                     InputView(
                             text: $password,
                             title: "Password",
                             placeholder: "Enter your password",
-                            isSecureField: true)
+                            isSecureField: true
+                    )
                             .autocapitalization(.none)
+                            .keyboardType(.default)
+                            .textContentType(.password)
+                            .disableAutocorrection(true)
                 }
-                .padding(.horizontal)
-                .padding(.top, 12)
+                        .padding(.horizontal)
+                        .padding(.top, 12)
 
 
-                Button{
+                Button {
                     viewModel.login(email: email, password: password)
                 } label: {
                     HStack {
@@ -73,5 +92,6 @@ struct LoginView: View {
                             .foregroundColor(.primary)
                 }
             }
+        }
     }
 }

@@ -15,11 +15,18 @@ class AuthenticationViewModel : ObservableObject {
         self.authManager = authManager
     }
 
+    @Inject
+    private var studyPlanetRepository: StudyPlanetRepositoryProtocol
+
 
     @Published var username: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
+
+    @Published var loginError: String = ""
+    @Published var registerError: String = ""
+    @Published var loading: Bool = false
 
     func isAuthenticated() -> Bool {
         authManager.isAuthenticated
@@ -27,6 +34,7 @@ class AuthenticationViewModel : ObservableObject {
 
     func logout() {
         authManager.signOut()
+        studyPlanetRepository.logout()
     }
 
     /// Initiates the login process with the provided email and password.
@@ -35,20 +43,29 @@ class AuthenticationViewModel : ObservableObject {
     ///   - password: The user's password.
     func login(email: String, password: String) {
         StaticLogger.log.debug("Calling login action")
-        LoginAction(parameters:
+        loading = true
+        if email.isEmpty || password.isEmpty {
+            loginError = "Please enter your email and password"
+            loading = false
+            return
+        } else {
+            LoginAction(parameters:
                 LoginDto(
-                        email: email,
-                        password: password
+                    email: email,
+                    password: password
                 )
-        ).call { result in
-            switch result {
-                case .success(let authenticatedUser):
-                    // Handle the authenticated user information
-                    print(authenticatedUser)
-                    self.authManager.authenticate(with: authenticatedUser.token)
-                case .failure(let error):
-                    // Handle the error
-                    print("Error: \(error)")
+            ).call { result in
+                switch result {
+                    case .success(let authenticatedUser):
+                        // Handle the authenticated user information
+                        print(authenticatedUser)
+                        self.authManager.authenticate(with: authenticatedUser.token)
+                        self.loading = false
+                    case .failure(let error):
+                        // Handle the error
+                        self.loginError = "Failed to authenticate"
+                        self.loading = false
+                }
             }
         }
     }

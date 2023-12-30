@@ -10,9 +10,9 @@ struct RegisterAction {
     var parameters: RegisterDto
 
     @Inject
-    private var studyPlanetApi: StudyPlanetApiProtocol
+    private var studyPlanetRepository: StudyPlanetRepositoryProtocol
 
     func call(completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
-        studyPlanetApi.register(parameters: parameters, completion: completion)
+        studyPlanetRepository.register(parameters: parameters, completion: completion)
     }
 }

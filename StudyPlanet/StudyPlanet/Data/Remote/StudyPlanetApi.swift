@@ -23,11 +23,11 @@ public protocol StudyPlanetApiProtocol {
 
     func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
 
-    func startExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
-    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+    func startExploring(parameters: ExploreDto, completion: @escaping (Result<EmptyResponse, Error>) -> ())
+    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<ExploreResponseDto, Error>) -> ())
 
-    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
-    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ())
+    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<EmptyResponse, Error>) -> ())
+    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<DiscoverResponseDto, Error>) -> ())
 }
 
 /// A class implementing the `StudyPlanetApiProtocol` for interacting with the StudyPlanet API.
@@ -63,7 +63,7 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
         )
     }
 
-    func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+    func register(parameters: RegisterDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> Void) {
         makeRequest(
                 urlEndPoint: "/users/register",
                 method: "POST",
@@ -74,41 +74,45 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
     }
 
 
-    func startExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+    func startExploring(parameters: ExploreDto, completion: @escaping (Result<EmptyResponse, Error>) -> Void) {
+        let token = KeychainService.shared.loadToken() ?? ""
         makeRequest(
-            urlEndPoint: "/users/startExploring",
+            urlEndPoint: "/actions/explore",
             method: "POST",
-            headers: ["Content-Type": "application/json"],
+            headers: ["Content-Type": "application/json", "Authorization": token],
             body: parameters,
             completion: completion
         )
     }
 
-    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+    func stopExploring(parameters: ExploreDto, completion: @escaping (Result<ExploreResponseDto, Error>) -> Void) {
+        let token = KeychainService.shared.loadToken() ?? ""
         makeRequest(
-            urlEndPoint: "/users/stopExploring",
+            urlEndPoint: "/actions/explore",
             method: "PUT",
-            headers: ["Content-Type": "application/json"],
+            headers: ["Content-Type": "application/json", "Authorization": token],
             body: parameters,
             completion: completion
         )
     }
 
-    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+    func startDiscovering(parameters: DiscoverDto, completion: @escaping (Result<EmptyResponse, Error>) -> Void) {
+        let token = KeychainService.shared.loadToken() ?? ""
         makeRequest(
-            urlEndPoint: "/users/startDiscovering",
+            urlEndPoint: "/actions/discover",
             method: "POST",
-            headers: ["Content-Type": "application/json"],
+            headers: ["Content-Type": "application/json", "Authorization": token],
             body: parameters,
             completion: completion
         )
     }
 
-    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<AuthenticatedUserDto, Error>) -> ()) {
+    func stopDiscovering(parameters: DiscoverDto, completion: @escaping (Result<DiscoverResponseDto, Error>) -> Void) {
+        let token = KeychainService.shared.loadToken() ?? ""
         makeRequest(
-            urlEndPoint: "/users/stopDiscovering",
+            urlEndPoint: "/actions/discover",
             method: "PUT",
-            headers: ["Content-Type": "application/json"],
+            headers: ["Content-Type": "application/json", "Authorization": token],
             body: parameters,
             completion: completion
         )
@@ -158,9 +162,17 @@ final class StudyPlanetApi: StudyPlanetApiProtocol {
                     let decodedResponse = try JSONDecoder().decode(T.self, from: data)
                     completion(.success(decodedResponse))
                 } catch {
-                    completion(.failure(error))
+                    // Have to allow empty response for some requests, will have clean this up later
+                    if T.Type.self == EmptyResponse.Type.self {
+                        print("Returning empty response")
+                        completion(.success(EmptyResponse() as! T))
+                    }
+                    else {
+                        completion(.failure(error))
+                    }
                 }
             } else if let error = error {
+                print("Failed in check response for error: \(error)")
                 completion(.failure(error))
             }
         }

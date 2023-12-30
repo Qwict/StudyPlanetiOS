@@ -5,13 +5,21 @@
 import SwiftUI
 
 struct DiscoveredPlanetsView: View {
+    @StateObject private var viewModel: DiscoveredPlanetsViewModel
+    init() {
+        _viewModel = StateObject(
+                wrappedValue: DiscoveredPlanetsViewModel()
+        )
+    }
+
+    @FetchRequest(fetchRequest: PlanetEntity.all()) private var planets
 
     var body: some View {
         VStack {
 //            Text("My Discovered Planets")
 //                    .font(.title)
 //                    .fontWeight(.bold)
-            if MockData.planets.isEmpty {
+            if planets.isEmpty {
                 Image(
                         systemName: "questionmark.circle"
                 )
@@ -27,15 +35,24 @@ struct DiscoveredPlanetsView: View {
                         .multilineTextAlignment(.center)
             } else {
                 VStack {
-                    List(MockData.planets) { planet in
-                        NavigationLink(destination: TimeSelectionView(planet: planet)) {
+                    List(planets) { planet in
+                        NavigationLink(destination: TimeSelectionView(planet: planet.toPlanet())) {
                             PlanetListItem(planet: planet)
                         }
                     }
+//                    List {
+//                        ForEach(planets) { planet in
+//                        NavigationLink(destination: TimeSelectionView(planet: planet)) {
+//                            PlanetListItem(planet: planet)
+//                        }
+//                    }
                 }
             }
 
 
         }
+//                .onAppear() {
+//                    viewModel.getLocalDiscoveredPlanets()
+//                }
     }
 }

@@ -5,7 +5,8 @@
 import SwiftUI
 
 struct PlanetImage: View {
-    let planet: PlanetDto
+//    let planet: PlanetDto
+    let planet: Planet
 
     var body: some View {
         Image(UIImage(named: planet.name) == nil ? "Galaxy" : planet.name)

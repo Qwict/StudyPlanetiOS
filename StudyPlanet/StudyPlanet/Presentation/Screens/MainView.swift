@@ -5,10 +5,10 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var viewModel: AuthenticationViewModel
-    init(authManager: AuthenticationManager) {
+    @StateObject private var viewModel: MainViewModel
+    init() {
         _viewModel = StateObject(
-                wrappedValue: AuthenticationViewModel(authManager: authManager)
+                wrappedValue: MainViewModel()
         )
     }
 
@@ -20,13 +20,21 @@ struct MainView: View {
                     .frame(width: 196, height: 196)
                     .padding(.vertical, 32)
 
-            Text("Welcome back, User")
+            Text("Welcome back, \(viewModel.user.name)")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.bottom, 32)
 
-            ProgressView(value: 30, total: 100)
+            Text("Level \(viewModel.currentLevel)")
+                    .font(.title2)
+                    .fontWeight(.bold)
+
+            ProgressView(value: viewModel.experienceProgress, total: 1)
+                    .padding()
         }
+                .onAppear() {
+                    viewModel.getLocalUser()
+                }
     }
+
 }
 

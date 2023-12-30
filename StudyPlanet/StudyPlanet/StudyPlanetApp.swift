@@ -12,13 +12,14 @@ import SwiftUI
 @main
 struct StudyPlanetApp: App {
     /// State object for managing authentication within the app.
-    @StateObject private var authManager = AuthenticationManager()
+    @StateObject private var authManager = AuthenticationManager.shared
 
     /// The body of the main scene, displaying the content of the app.
     var body: some Scene {
         WindowGroup {
             ContentView(authManager: authManager)
-                .environmentObject(authManager)
+                    .environmentObject(authManager)
+                    .environment(\.managedObjectContext, StudyPlanetDatabase.shared.viewContext)
         }
     }
 }

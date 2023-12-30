@@ -6,6 +6,6 @@ import Foundation
 
 public struct AuthenticatedUserDto: Decodable {
     let validated: Bool
-    let user: User
+    let user: UserDto
     let token: String
 }

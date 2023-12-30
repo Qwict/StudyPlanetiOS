@@ -8,3 +8,7 @@ public struct ExploreDto: Encodable {
     let planetId: Int
     let selectedTime: Int
 }
+
+public struct ExploreResponseDto: Decodable {
+    let experience: Int
+}

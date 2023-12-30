@@ -21,6 +21,7 @@ class KeychainService {
     ///
     /// - Parameter token: The authentication token to be saved.
     func saveToken(_ token: String) {
+        print("Saving token to Keychain: \(token)")
         guard let data = token.data(using: .utf8) else { return }
 
         // Create a query for the Keychain

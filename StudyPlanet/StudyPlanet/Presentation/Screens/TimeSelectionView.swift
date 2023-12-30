@@ -5,7 +5,8 @@
 import SwiftUI
 
 struct TimeSelectionView: View {
-    let planet: PlanetDto
+//    let planet: PlanetDto
+    let planet: Planet
     @State private var selectedHour: Int = 0
     @State private var selectedMinute: Int = 30
 
@@ -24,6 +25,7 @@ struct TimeSelectionView: View {
         VStack {
             VStack {
                 PlanetCard(planet: planet)
+                        .cornerRadius(10)
 
                 MultiComponentPicker(
                         columns: columns,
@@ -60,7 +62,11 @@ struct TimeSelectionView: View {
                         .accentColor(.black)
 
             }
-                    .disabled(selectedHour == 0 && selectedMinute < 15)
+                    .disabled(
+                            selectedHour == 0 &&
+                            selectedMinute < 1
+//                                    selectedMinute < 15
+                    )
 
         }
     }

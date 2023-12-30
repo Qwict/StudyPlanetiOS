@@ -7,3 +7,9 @@ import Foundation
 public struct DiscoverDto: Encodable {
     let selectedTime: Int
 }
+
+public struct DiscoverResponseDto: Decodable {
+    let id: Int?
+    let name: String?
+    let discovered: Int
+}
