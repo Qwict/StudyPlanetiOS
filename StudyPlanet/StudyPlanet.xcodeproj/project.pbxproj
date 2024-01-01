@@ -488,7 +488,7 @@
 			mainGroup = 2A75B1E888823D9857914CF8;
 			packageReferences = (
 				EB7E58402B3C569100BDE246 /* XCRemoteSwiftPackageReference "Swinject" */,
-				EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
+				EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode" */,
 				EB60B0B62B409D3A000515E6 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = 2A75BBA89ED0ADBAEF4F4400 /* Products */;
@@ -703,6 +703,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyPlanet/Preview Content\"";
+				DEVELOPMENT_TEAM = NUX93MU6QK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudyPlanet/Info.plist;
@@ -746,6 +747,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyPlanet/Preview Content\"";
+				DEVELOPMENT_TEAM = NUX93MU6QK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudyPlanet/Info.plist;
@@ -895,7 +897,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */ = {
+		EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
 			requirement = {
@@ -924,7 +926,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		EB60B0B42B404104000515E6 /* JWTDecode */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */;
+			package = EB60B0B32B404104000515E6 /* XCRemoteSwiftPackageReference "JWTDecode" */;
 			productName = JWTDecode;
 		};
 		EB60B0B72B409D3A000515E6 /* SwiftyBeaver */ = {
